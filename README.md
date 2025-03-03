@@ -1,5 +1,6 @@
 # Veff2-Hopverkefni1
  
+
 Recommended Tools & Technologies
 Backend Framework:
 
@@ -105,3 +106,6 @@ Week 4:
 Final Integration & Deployment: Conduct integration tests, fix any issues, and deploy the service.
 Documentation: Update the README with setup instructions, test details, and team member info.
 Review & Code Cleanup: Make final commits and prepare for the presentation.
+
+ # hæ
+

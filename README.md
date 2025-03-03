@@ -1,4 +1,19 @@
 # Veff2-Hopverkefni1
+
+npm pakkar:
+npm install express
+npm install dotenv
+npm install pg
+npm install jsonwebtoken
+npm install bcryptjs
+npm install cloudinary multer
+npm install --save-dev nodemon
+npm install --save-dev jest supertest
+npm install --save-dev eslint
+npx eslint --init
+
+
+
  
 Express framework fyrir REST API endpoints
 

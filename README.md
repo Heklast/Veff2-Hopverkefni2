@@ -1,5 +1,30 @@
 # Veff2-Hopverkefni1
  
+Express framework fyrir REST API endpoints
+
+PostgreSQL fyrir gagnagronn, Kannski nota ORM til að einfalda SQL query?
+
+JWT tokens fyrir authentication (t.d. jsonwebtoken library)
+
+Cloudinary fyrir myndir
+
+Jest fyrir prófanir
+
+ESLint?
+
+Plan:
+
+1. ákveða hvaða töflur eiga að vera í gagnagrunni og hvað vefþjónusta á að gera miðað við verkefnið
+
+2. Setja upp project structure, downloada libraries og allt það
+
+3. Setja upp gagnagrunn annaðhvort beint eða með ORM
+
+4. Búa til endpoints sem tala við gagnagrunn skv. verkefnislýsingu
+
+5. Notendaumsjón, búa til mismunandi notendur og aðferðir til að authenticatea/geyma users
+
+6. Setja inn gögn og testa og allt það góða
 
 Recommended Tools & Technologies
 Backend Framework:

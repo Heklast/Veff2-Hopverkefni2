@@ -2,7 +2,7 @@
  
 Express framework fyrir REST API endpoints
 
-PostgreSQL fyrir gagnagronn, Kannski nota ORM til að einfalda SQL query?
+PostgreSQL fyrir gagnagrunn, Kannski nota ORM til að einfalda SQL query?
 
 JWT tokens fyrir authentication (t.d. jsonwebtoken library)
 

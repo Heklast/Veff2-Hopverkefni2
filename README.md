@@ -11,6 +11,8 @@ npm install --save-dev nodemon
 npm install --save-dev jest supertest
 npm install --save-dev eslint
 npx eslint --init
+npm install prisma @prisma/client
+npx prisma init
 
 
 

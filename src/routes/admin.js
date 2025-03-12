@@ -1,7 +1,7 @@
 import { Router } from "express";
 import express from "express";
 import authMiddleware from "../utils/authMiddleware.js";
-import prisma from "../utils/prismaClient.js";
+import { prisma } from "../utils/prismaClient.js";
 
 const { authenticateToken, authorizeAdmin } = authMiddleware;
 

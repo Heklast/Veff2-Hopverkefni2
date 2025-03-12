@@ -13,6 +13,12 @@ npm install --save-dev eslint
 npx eslint --init
 npm install prisma @prisma/client
 npx prisma init
+npm install @faker-js/faker
+
+
+## Til að seeda database:
+Hreinsa fyrst (ef þarf) = npm prisma migrate reset
+Keyra: node prisma/seed.js
 
 
 
@@ -45,6 +51,16 @@ Plan:
 
 Recommended Tools & Technologies
 Backend Framework:
+
+Hvað á eftir að gera:
+
+1. Seeda 50 raðir í heildina í database = Óli gerði þetta og notaði faker til að búa til gögn
+2. Finna út úr cloudinary/imgix/mux myndum
+3. Setja upp ESLint
+4. Skrifa Tests
+5. Skrifa Readme
+6. Hýsa með postgres db
+7. Klára magn af pull requests
 
 Use Express or Hono for setting up your REST API endpoints. Both are mature and will allow you to easily implement middleware for validation, error handling, and JWT-based authentication.
 Database:

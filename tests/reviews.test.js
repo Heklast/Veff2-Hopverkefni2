@@ -1,32 +1,34 @@
-// tests/reviews.test.js
 import request from "supertest";
 import app from "../src/utils/app.js";
 import { prisma } from "../src/utils/prismaClient.js";
 
-
 function randomEmail() {
-    return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
-  }
+  return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
+}
 
+function randomUsername() {
+  return `user_${Math.floor(Math.random() * 999999)}`;
+}
 
 describe("Reviews API", () => {
   let adminToken;
   let userToken;
-  let secondUserToken; // for testing "not the owner"
+  let secondUserToken; // for testing unauthorized actions
   let product;
   let createdReviewId;
 
   beforeAll(async () => {
-    // 1. Log in admin
+    // 1. Log in as admin
     const adminLogin = await request(app)
       .post("/auth/login")
       .send({ email: "admin@admin.com", password: "admin" });
     adminToken = adminLogin.body.token;
 
-    // 2. Register & log in one normal user (the "review owner")
+    // 2. Register and log in one normal user (review owner)
     const userEmail = randomEmail();
+    const username = randomUsername();
     await request(app).post("/auth/register").send({
-      username: "reviewOwner",
+      username,
       email: userEmail,
       password: "test123"
     });
@@ -36,10 +38,11 @@ describe("Reviews API", () => {
     });
     userToken = userLogin.body.token;
 
-    // 3. Register & log in another user (to test "Not authorized" for a different user)
+    // 3. Register and log in another user (for unauthorized actions)
     const secondEmail = randomEmail();
+    const secondUsername = randomUsername();
     await request(app).post("/auth/register").send({
-      username: "reviewOther",
+      username: secondUsername,
       email: secondEmail,
       password: "test123"
     });
@@ -50,9 +53,7 @@ describe("Reviews API", () => {
     secondUserToken = secondUserLogin.body.token;
 
     // 4. Ensure we have a product to review
-    product = await prisma.product.findFirst(); 
-    // If you might have no products, create one here:
-    // product = await prisma.product.create({ ... });
+    product = await prisma.product.findFirst();
   });
 
   afterAll(async () => {
@@ -62,7 +63,6 @@ describe("Reviews API", () => {
   it("should get a list of reviews (public)", async () => {
     const res = await request(app).get("/reviews");
     expect(res.status).toBe(200);
-    // expect structure like: { data, currentPage, totalPages, totalCount }
     expect(res.body).toHaveProperty("data");
   });
 

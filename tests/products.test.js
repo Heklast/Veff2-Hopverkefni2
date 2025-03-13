@@ -3,30 +3,35 @@ import app from "../src/utils/app.js";
 import { prisma } from "../src/utils/prismaClient.js";
 
 function randomEmail() {
-    return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
-  }
+  return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
+}
 
+function randomUsername() {
+  return `user_${Math.floor(Math.random() * 999999)}`;
+}
 
 describe("Products API", () => {
   let adminToken;
   let userToken;
 
   beforeAll(async () => {
-    // 1. Log in as admin (assuming you have seeded admin@admin.com / "admin")
+    // 1. Log in as admin (assuming admin@admin.com exists with password "admin")
     const adminLogin = await request(app).post("/auth/login").send({
       email: "admin@admin.com",
       password: "admin"
     });
     adminToken = adminLogin.body.token;
 
-    // 2. Register + login a normal user
-    const userReg = await request(app).post("/auth/register").send({
-      username: "testUser",
-      email: randomEmail(),
+    // 2. Register and log in a normal user with unique credentials
+    const userEmail = randomEmail();
+    const username = randomUsername();
+    await request(app).post("/auth/register").send({
+      username,
+      email: userEmail,
       password: "password"
     });
     const userLogin = await request(app).post("/auth/login").send({
-      email: randomEmail(),
+      email: userEmail,
       password: "password"
     });
     userToken = userLogin.body.token;
@@ -69,6 +74,4 @@ describe("Products API", () => {
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty("id");
   });
-
-  // ...test PUT /products/:id, DELETE /products/:id similarly
 });

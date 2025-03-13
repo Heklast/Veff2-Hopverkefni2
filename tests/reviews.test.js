@@ -2,6 +2,7 @@ import request from "supertest";
 import app from "../src/utils/app.js";
 import { prisma } from "../src/utils/prismaClient.js";
 
+
 function randomEmail() {
   return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
 }

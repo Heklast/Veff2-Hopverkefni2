@@ -1,25 +1,35 @@
 ## Veff2-Hopverkefni1
 
-## npm pakkar:
-npm install express
-npm install dotenv
-npm install pg
-npm install jsonwebtoken
-npm install bcryptjs
-npm install cloudinary multer
-npm install --save-dev nodemon
-npm install --save-dev jest supertest
-npm install --save-dev eslint
-npx eslint --init
-npm install prisma @prisma/client
-npx prisma init
-npm install @faker-js/faker
-npm install --save-dev jest supertest
+## Setja upp verkefni
+**Hlaða niður helstu pökkum:**
 
+npm install
+
+**Setja upp prisma:**
+
+npx prisma init
+
+## Til að seeda database:
+Hreinsa fyrst (ef þarf) = npx prisma migrate reset
+
+Keyra: node prisma/seed.js
+
+**Keyra test:**
+
+npm run test
+
+**Keyra einfaldan framenda:**
+
+npm start
+
+## Admin aðgangur:
+username: admin
+email: admin@admin.com
+password: admin
 
 
 ## Til að seeda database:
-Hreinsa fyrst (ef þarf) = npm prisma migrate reset
+Hreinsa fyrst (ef þarf) = npx prisma migrate reset
 Keyra: node prisma/seed.js
 
 # Til að komast interactive í database:
@@ -30,13 +40,25 @@ psql -h localhost -d hopverkefni -U oli
  
 Express framework fyrir REST API endpoints
 
-PostgreSQL fyrir gagnagrunn, Kannski nota ORM til að einfalda SQL query?
+PostgreSQL fyrir gagnagrunn með hjálp frá Prisma
 
 Cloudinary fyrir myndir
 
 Jest fyrir prófanir
 
-ESLint?
+ESLint
+
+Faker til að generatea gögn
+
+## Einfaldur framendi coverage:
+
+**Authentication:**
+
+Staðfestir að hægt sé að stofna aðgang og logga sig inn með þeim aðgang.
+
+**Products.js:**
+
+Sýnir hvernig cloudinary tengir saman myndir með gögnum sem generateuð eru með Faker, sýnir einnig hvernig listi af vörum og flokkar þeirra eru geymd.
 
 ## Testing coverage
 

@@ -28,7 +28,7 @@ export default [
     },
     rules: {
       // Example custom overrides:
-      // "no-unused-vars": "warn",
+      "no-unused-vars": "warn",
       // "semi": ["error", "always"],
       // "quotes": ["error", "double"]
     }

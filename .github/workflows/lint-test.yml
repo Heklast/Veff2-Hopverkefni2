@@ -6,9 +6,12 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/hopverkefni?schema=public"
     services:
       postgres:
         image: postgres:14
@@ -44,6 +47,4 @@ jobs:
 
       - name: Test
         if: always()
-        env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/hopverkefni?schema=public"
         run: npm test

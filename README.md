@@ -14,6 +14,8 @@ npx eslint --init
 npm install prisma @prisma/client
 npx prisma init
 npm install @faker-js/faker
+npm install --save-dev jest supertest
+
 
 
 ## Til að seeda database:
@@ -26,8 +28,6 @@ Keyra: node prisma/seed.js
 Express framework fyrir REST API endpoints
 
 PostgreSQL fyrir gagnagrunn, Kannski nota ORM til að einfalda SQL query?
-
-JWT tokens fyrir authentication (t.d. jsonwebtoken library)
 
 Cloudinary fyrir myndir
 

@@ -3,11 +3,22 @@ import { prisma } from "../utils/prismaClient.js";
 import {v2 as cloudinary} from "cloudinary";
 import authMiddleware from "../utils/authMiddleware.js";
 import multer from "multer";
+import { body, validationResult } from "express-validator";
 
 const { authenticateToken, authorizeAdmin } = authMiddleware;
 const router = Router();
 
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ 
+  dest: "uploads/",
+  fileFilter: (req, file, cb) => {
+    const allowedMimeTypes = ["image/jpeg", "image/png"];
+    if (allowedMimeTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only JPG and PNG files are allowed"), false);
+    }
+  }
+});
 
 // GET /products (with optional pagination)
 router.get("/", async (req, res) => {
@@ -127,6 +138,7 @@ router.post("/:id/image", authenticateToken, authorizeAdmin, upload.single("imag
       folder: "products", 
       use_filename: true,
       unique_filename: false,
+      allowed_formats: ["jpg",  "png"],
     });
 
     const updatedProduct = await prisma.product.update({

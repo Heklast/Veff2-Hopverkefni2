@@ -9,6 +9,20 @@ on:
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hopverkefni
+        options: >-
+          --health-cmd "pg_isready -U postgres" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
     steps:
       - uses: actions/checkout@v3
 
@@ -23,6 +37,7 @@ jobs:
         run: npm run lint
 
       - name: Test
-        # Run this even if linting failed
         if: always()
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/hopverkefni?schema=public"
         run: npm test

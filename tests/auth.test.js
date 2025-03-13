@@ -30,9 +30,17 @@ describe("Auth Tests", () => {
   it("should fail to register if missing fields", async () => {
     const res = await request(app).post("/auth/register").send({
       username: randomUsername(),
+      // Missing email and password
     });
     expect(res.statusCode).toBe(400);
-    expect(res.body).toHaveProperty("error", "Missing fields");
+    // Check that the response has an "errors" property that is an array
+    expect(res.body).toHaveProperty("errors");
+    expect(Array.isArray(res.body.errors)).toBe(true);
+    
+    // Optionally, check that the error messages include the ones we expect.
+    const errorMessages = res.body.errors.map(err => err.msg);
+    expect(errorMessages).toContain("Please provide a valid email");
+    expect(errorMessages).toContain("Password is required");
   });
 
   let token;

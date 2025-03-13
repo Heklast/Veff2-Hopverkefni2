@@ -8,6 +8,13 @@ import { body, validationResult } from "express-validator";
 const { authenticateToken, authorizeAdmin } = authMiddleware;
 const router = Router();
 
+const productValidationRules = [
+  body("name").isString().trim().notEmpty().withMessage("Name is required"),
+  body("price").isFloat({ gt: 0 }).withMessage("Price must be a positive number"),
+  body("stock").isInt({ gt: 0 }).withMessage("Stock must be a positive integer"),
+  body("categoryId").isInt().withMessage("CategoryId must be an integer"),
+];
+
 const upload = multer({ 
   dest: "uploads/",
   fileFilter: (req, file, cb) => {
@@ -23,7 +30,7 @@ const upload = multer({
 // GET /products (with optional pagination)
 router.get("/", async (req, res) => {
   let { page = 1, limit = 10 } = req.query;
-  page = parseInt(page, 10);
+  page = parseInt(page, 10);5
   limit = parseInt(limit, 10);
 
   const skip = (page - 1) * limit;
@@ -70,10 +77,12 @@ router.get("/:id", async (req, res) => {
 
 // POST /products (admin only)
 router.post("/", authenticateToken, authorizeAdmin, async (req, res) => {
-  const { name, description, price, stock, categoryId } = req.body;
-  if (!name || !price || !stock || !categoryId) {
-    return res.status(400).json({ error: "Missing fields" });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
+
+  const { name, description, price, stock, categoryId } = req.body;
 
   try {
     const newProduct = await prisma.product.create({
@@ -90,7 +99,6 @@ router.post("/", authenticateToken, authorizeAdmin, async (req, res) => {
     res.status(500).json({ error: "Error creating product", details: error.message });
   }
 });
-
 // PUT /products/:id (admin only)
 router.put("/:id", authenticateToken, authorizeAdmin, async (req, res) => {
   const { id } = req.params;

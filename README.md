@@ -30,10 +30,6 @@ username: admin
 email: admin@admin.com
 password: admin
 
-### Komast interactive í database:
-psql -h localhost -d hopverkefni -U oli
-
-
 ## Route í vefþjónustu og viðkomandi aðgerð:
 
 **admin.js:**
@@ -240,6 +236,34 @@ Lýsing: Eyðir umsögn með tilteknu ID.
 Eigandi umsagnarinnar eða admin getur eytt umsögninni.
 Svar: Skilar staðfestingu á eyðingu eða villuskilaboðum ef ekki heimilað aðgang.
 
+## Dæmi um kall í vefþjónustu m.v. test gögn:
+
+**Dæmi 1: Innskráning (POST /login)**
+
+Kall til að skrá sig inn sem admin (test gögnin gera admin notanda með tölvupóst "admin@admin.com" og lykilorðið "admin"):
+
+```bash
+curl --location --request POST 'http://localhost:3000/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "admin@admin.com",
+    "password": "admin"
+}'
+```
+
+**Dæmi 2: sækja lista yfir vörur (GET /Products):**
+```bash
+curl --location --request POST 'http://localhost:3000/orders' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <TOKEN>' \
+--data-raw '{
+    "items": [
+        {"productId": 1, "quantity": 2},
+        {"productId": 3, "quantity": 1}
+    ]
+}'
+
+```
 
 ## Tól notuð:
  

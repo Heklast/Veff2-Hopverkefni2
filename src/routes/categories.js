@@ -21,13 +21,10 @@ router.get("/", async (req, res) => {
       prisma.category.findMany({
         skip,
         take,
-        // You can include products if you want (with includes, etc.)
-        // include: { products: true },
       }),
       prisma.category.count(),
     ]);
 
-    // For clarity, you might also return total pages or next/prev links
     res.json({
       data: categories,
       currentPage: page,
@@ -49,8 +46,6 @@ router.get("/:id", async (req, res) => {
   try {
     const category = await prisma.category.findUnique({
       where: { id: Number(id) },
-      // You could include related products if needed
-      // include: { products: true },
     });
 
     if (!category) {

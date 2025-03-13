@@ -23,7 +23,6 @@ router.get("/", async (req, res) => {
       prisma.product.findMany({
         skip,
         take,
-       // include: { category: true },
       }),
       prisma.product.count(),
     ]);
@@ -124,14 +123,12 @@ router.post("/:id/image", authenticateToken, authorizeAdmin, upload.single("imag
   const { id } = req.params;
 
   try {
-    // Upload the file from Multer to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "products", // Optional: specify a folder in your Cloudinary account
+      folder: "products", 
       use_filename: true,
       unique_filename: false,
     });
 
-    // Update the product's image field with the Cloudinary URL
     const updatedProduct = await prisma.product.update({
       where: { id: Number(id) },
       data: { image: result.secure_url },

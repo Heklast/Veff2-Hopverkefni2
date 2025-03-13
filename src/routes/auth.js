@@ -1,7 +1,6 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-//import mockDB from "../utils/mockDB.js";
 import {prisma} from "../utils/prismaClient.js"
 
 const router = Router();
@@ -16,10 +15,6 @@ router.post("/register", async (req, res) => {
     console.log("Registering user:", { username, email });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    //mock version
-    //const newUser = { id: Date.now(), username, email, password: hashedPassword, role: "user" };
-    //mockDB.addUser(newUser);
-
     try {
         const newUser = await prisma.user.create({
             data: {
@@ -42,10 +37,6 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     console.log("Login attempt with:", { email, password });
-
-    //mock version
-   // const user = await mockDB.getUserByEmail(email);
-    //console.log("User found:", user); 
     try {
         const user = await prisma.user.findUnique({
             where: { email },

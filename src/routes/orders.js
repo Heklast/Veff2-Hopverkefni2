@@ -146,7 +146,6 @@ router.post("/", authenticateToken, async (req, res) => {
     });
 
     // 4. Update product stock
-    // In a transaction, you can do it all atomically. For simplicity:
     for (const item of items) {
       const product = products.find((p) => p.id === item.productId);
       const updatedStock = product.stock - item.quantity;
@@ -169,7 +168,7 @@ router.post("/", authenticateToken, async (req, res) => {
  */
 router.put("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
-  const { status } = req.body; // e.g. "Shipped" or "Cancelled"
+  const { status } = req.body;
   const userId = req.user.id;
   const userRole = req.user.role;
 
@@ -181,12 +180,10 @@ router.put("/:id", authenticateToken, async (req, res) => {
       return res.status(404).json({ error: "Order not found" });
     }
 
-    // If not admin, ensure user owns this order
     if (userRole !== "admin" && existingOrder.userId !== userId) {
       return res.status(401).json({ error: "Not authorized to update this order" });
     }
 
-    // Possibly check if the order is still "Pending" to allow user cancellation
     const updatedOrder = await prisma.order.update({
       where: { id: Number(id) },
       data: { status: status || existingOrder.status },

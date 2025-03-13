@@ -38,7 +38,7 @@ psql -h localhost -d hopverkefni -U oli
 
 ## Tól notuð:
  
-Express framework fyrir REST API endpoints
+Express framework fyrir REST API endapunkta
 
 PostgreSQL fyrir gagnagrunn með hjálp frá Prisma
 
@@ -46,7 +46,7 @@ Cloudinary fyrir myndir
 
 Jest fyrir prófanir
 
-ESLint
+ESLint skrá og Github actions
 
 Faker til að generatea gögn
 
@@ -120,7 +120,7 @@ npm run dev
 ## Hvað á eftir að gera:
 
 1. Seeda 50 raðir í heildina í database = Óli gerði þetta og notaði faker til að búa til gögn
-2. Finna út úr cloudinary/imgix/mux myndum
+2. Finna út úr cloudinary/imgix/mux myndum = Hekla búin að setja upp, vantar kannski að leyfa ákveðnar týpur af myndum
 3. Setja upp ESLint = Óli setti upp ESLint en á eftir að kanna villurnar sem það sendir inn
 4. Skrifa Tests = Óli setti upp test fyrir 4 endpoint með jest (gæti vantað fleira)
 5. Runna tests og debugga API = Test suites ættu núna bara að skila passes

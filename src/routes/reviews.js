@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", authenticateToken, async (req, res) => {
   const { productId, rating, comment } = req.body;
-  const userId = req.user.id; //authenticateToken middleware
+  const userId = req.user.id;
 
   if (!productId || !rating) {
     return res.status(400).json({ error: "Missing productId or rating" });

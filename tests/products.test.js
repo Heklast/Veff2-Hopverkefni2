@@ -15,14 +15,12 @@ describe("Products API", () => {
   let userToken;
 
   beforeAll(async () => {
-    // 1. Log in as admin (assuming admin@admin.com exists with password "admin")
     const adminLogin = await request(app).post("/auth/login").send({
       email: "admin@admin.com",
       password: "admin"
     });
     adminToken = adminLogin.body.token;
 
-    // 2. Register and log in a normal user with unique credentials
     const userEmail = randomEmail();
     const username = randomUsername();
     await request(app).post("/auth/register").send({

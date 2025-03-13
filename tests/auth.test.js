@@ -22,7 +22,7 @@ describe("Auth Tests", () => {
       password: "somepassword",
     });
     
-    expect(res.statusCode).toBe(201); // expecting "201 Created"
+    expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("user");
     expect(res.body.user).toHaveProperty("id");
   });
@@ -30,13 +30,12 @@ describe("Auth Tests", () => {
   it("should fail to register if missing fields", async () => {
     const res = await request(app).post("/auth/register").send({
       username: randomUsername(),
-      // missing email and password
     });
     expect(res.statusCode).toBe(400);
     expect(res.body).toHaveProperty("error", "Missing fields");
   });
 
-  let token; // store token for subsequent tests
+  let token;
 
   it("should login with the newly created user", async () => {
     const email = randomEmail();

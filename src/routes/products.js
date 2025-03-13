@@ -1,9 +1,13 @@
 import { Router } from "express";
 import { prisma } from "../utils/prismaClient.js";
+import {v2 as cloudinary} from "cloudinary";
 import authMiddleware from "../utils/authMiddleware.js";
+import multer from "multer";
 
 const { authenticateToken, authorizeAdmin } = authMiddleware;
 const router = Router();
+
+const upload = multer({ dest: "uploads/" });
 
 // GET /products (with optional pagination)
 router.get("/", async (req, res) => {
@@ -19,7 +23,7 @@ router.get("/", async (req, res) => {
       prisma.product.findMany({
         skip,
         take,
-        include: { category: true }, // Example: show category info
+       // include: { category: true },
       }),
       prisma.product.count(),
     ]);
@@ -31,6 +35,7 @@ router.get("/", async (req, res) => {
       totalCount,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching products" });
   }
 });
@@ -48,6 +53,7 @@ router.get("/:id", async (req, res) => {
     }
     res.json(product);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching product" });
   }
 });
@@ -111,6 +117,29 @@ router.delete("/:id", authenticateToken, authorizeAdmin, async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
     res.status(500).json({ error: "Error deleting product" });
+  }
+});
+
+router.post("/:id/image", authenticateToken, authorizeAdmin, upload.single("image"), async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Upload the file from Multer to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "products", // Optional: specify a folder in your Cloudinary account
+      use_filename: true,
+      unique_filename: false,
+    });
+
+    // Update the product's image field with the Cloudinary URL
+    const updatedProduct = await prisma.product.update({
+      where: { id: Number(id) },
+      data: { image: result.secure_url },
+    });
+
+    res.json(updatedProduct);
+  } catch (error) {
+    res.status(500).json({ error: "Error uploading image", details: error.message });
   }
 });
 

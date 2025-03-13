@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vörur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 200px;
+        }
+        select {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Vörulisti</h2>
+        <label for="categoryFilter">Veldu flokk:</label>
+        <select id="categoryFilter">
+            <option value="">Allar vörur</option>
+        </select>
+        
+        <button onclick="fetchProducts()">Sækja vörur</button>
+
+        <div class="product-list" id="productList">
+            <!-- Products will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        async function fetchCategories() {
+            try {
+                const response = await fetch("http://localhost:3000/categories");
+                const data = await response.json();
+
+                const categoryFilter = document.getElementById("categoryFilter");
+                
+                data.data.forEach(category => {
+                    const option = document.createElement("option");
+                    option.value = category.id;
+                    option.textContent = category.name;
+                    categoryFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Villa við að sækja flokka:", error);
+            }
+        }
+
+        async function fetchProducts() {
+  const categoryId = document.getElementById("categoryFilter").value;
+  let url = "http://localhost:3000/products";
+  
+  if (categoryId) {
+    url += `?category=${categoryId}`;
+  }
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const productList = document.getElementById("productList");
+    productList.innerHTML = "";
+
+    if (data && data.data) {
+      data.data.forEach(product => {
+        const productElement = document.createElement("div");
+        productElement.classList.add("product");
+        productElement.innerHTML = `
+          <h3>${product.name}</h3>
+          <img src="${product.image || 'placeholder.jpg'}" alt="${product.name}" style="max-width: 100%; height: auto;" />
+          <p>${product.description || "Engin lýsing"}</p>
+          <p>Verð: ${product.price} ISK</p>
+          <p>Birgðir: ${product.stock}</p>
+        `;
+        productList.appendChild(productElement);
+      });
+    } else {
+      console.error("No data received from the server");
+    }
+  } catch (error) {
+    console.error("Villa við að sækja vörur:", error);
+  }
+}
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchCategories();
+            fetchProducts();
+        });
+    </script>
+</body>
+</html>

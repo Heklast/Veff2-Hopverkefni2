@@ -13,18 +13,16 @@ function randomUsername() {
 describe("Reviews API", () => {
   let adminToken;
   let userToken;
-  let secondUserToken; // for testing unauthorized actions
+  let secondUserToken;
   let product;
   let createdReviewId;
 
   beforeAll(async () => {
-    // 1. Log in as admin
     const adminLogin = await request(app)
       .post("/auth/login")
       .send({ email: "admin@admin.com", password: "admin" });
     adminToken = adminLogin.body.token;
 
-    // 2. Register and log in one normal user (review owner)
     const userEmail = randomEmail();
     const username = randomUsername();
     await request(app).post("/auth/register").send({
@@ -38,7 +36,6 @@ describe("Reviews API", () => {
     });
     userToken = userLogin.body.token;
 
-    // 3. Register and log in another user (for unauthorized actions)
     const secondEmail = randomEmail();
     const secondUsername = randomUsername();
     await request(app).post("/auth/register").send({
@@ -52,7 +49,6 @@ describe("Reviews API", () => {
     });
     secondUserToken = secondUserLogin.body.token;
 
-    // 4. Ensure we have a product to review
     product = await prisma.product.findFirst();
   });
 

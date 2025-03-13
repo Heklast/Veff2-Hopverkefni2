@@ -14,8 +14,6 @@ describe("Orders Tests", () => {
   let token;
 
   beforeAll(async () => {
-    // Optionally clear orders if needed, e.g.:
-    // await prisma.order.deleteMany({});
   });
 
   afterAll(async () => {
@@ -43,7 +41,6 @@ describe("Orders Tests", () => {
   });
 
   it("should create an order with valid items", async () => {
-    // Assume there is at least one product in your seeded data
     const product = await prisma.product.findFirst();
     expect(product).toBeTruthy();
 
@@ -61,7 +58,7 @@ describe("Orders Tests", () => {
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
-    expect(res.body.orderItems.length).toBeGreaterThan(0);
+    expect(res.body.OrderItem.length).toBeGreaterThan(0);
   });
 
   it("should fail to create an order without items", async () => {

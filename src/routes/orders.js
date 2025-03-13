@@ -2,12 +2,12 @@ import { Router } from "express";
 import { prisma } from "../utils/prismaClient.js";
 import authMiddleware from "../utils/authMiddleware.js";
 
-const { authenticateToken, authorizeAdmin } = authMiddleware;
+const { authenticateToken} = authMiddleware;
 const router = Router();
 
 /**
  * GET /orders
- * If admin => see all orders, else => only see the orders of the logged in user.
+ * If admin can see all orders, else can only see the orders of the logged in user.
  */
 router.get("/", authenticateToken, async (req, res) => {
   const userId = req.user.id;
@@ -32,7 +32,7 @@ router.get("/", authenticateToken, async (req, res) => {
         skip,
         take,
         include: {
-          orderItems: {
+          OrderItem: {
             include: { product: true },
           },
           user: true,
@@ -48,13 +48,14 @@ router.get("/", authenticateToken, async (req, res) => {
       totalCount,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching orders" });
   }
 });
 
 /**
  * GET /orders/:id
- * If admin => can see any order, else => must be your own order
+ *if admin then he can see any order, else must be your own order
  */
 router.get("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
@@ -65,7 +66,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
     const order = await prisma.order.findUnique({
       where: { id: Number(id) },
       include: {
-        orderItems: {
+        OrderItem: {
           include: { product: true },
         },
         user: true,
@@ -81,6 +82,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
 
     res.json(order);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching order" });
   }
 });
@@ -88,25 +90,21 @@ router.get("/:id", authenticateToken, async (req, res) => {
 /**
  * POST /orders
  * Create an order for the logged in user
- * Body typically includes the items: [ { productId, quantity }, ... ]
  */
 router.post("/", authenticateToken, async (req, res) => {
   const userId = req.user.id;
   const { items } = req.body;
 
-  // We expect items to be an array of { productId, quantity }
   if (!items || !Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: "No items provided" });
   }
 
   try {
-    // 1. Fetch all product info to compute total and validate
     const productIds = items.map((i) => i.productId);
     const products = await prisma.product.findMany({
       where: { id: { in: productIds } },
     });
 
-    // 2. Build order items data, check stock, compute total
     let totalAmount = 0;
     const orderItemsData = [];
 
@@ -133,18 +131,17 @@ router.post("/", authenticateToken, async (req, res) => {
     }
 
     // 3. Create the order, then create the order items
-    //    In a real scenario, you might do a transaction
     const newOrder = await prisma.order.create({
       data: {
         userId,
         status: "Pending",
         totalAmount,
-        orderItems: {
+        OrderItem: {
           create: orderItemsData,
         },
       },
       include: {
-        orderItems: true,
+        OrderItem: true,
       },
     });
 
@@ -206,8 +203,6 @@ router.put("/:id", authenticateToken, async (req, res) => {
 
 /**
  * DELETE /orders/:id
- * Typically, you might not allow full deletion, 
- * but maybe an admin can do it or user can do it if still pending.
  */
 router.delete("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
@@ -231,6 +226,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
     });
     res.json({ message: "Order deleted successfully" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error deleting order" });
   }
 });

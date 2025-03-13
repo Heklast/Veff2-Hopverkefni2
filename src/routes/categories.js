@@ -7,7 +7,6 @@ const router = Router();
 
 /**
  * GET /categories
- * Optionally supports pagination via query params: ?page=1&limit=10
  */
 router.get("/", async (req, res) => {
   try {
@@ -15,7 +14,6 @@ router.get("/", async (req, res) => {
     page = parseInt(page, 10);
     limit = parseInt(limit, 10);
 
-    // Prisma uses `skip` and `take` for pagination
     const skip = (page - 1) * limit;
     const take = limit;
 
@@ -61,14 +59,13 @@ router.get("/:id", async (req, res) => {
 
     res.json(category);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching category" });
   }
 });
 
 /**
  * POST /categories
- * Create a new category
- * Only admins can create categories
  */
 router.post("/", authenticateToken, authorizeAdmin, async (req, res) => {
   const { name, description } = req.body;
@@ -92,8 +89,6 @@ router.post("/", authenticateToken, authorizeAdmin, async (req, res) => {
 
 /**
  * PUT /categories/:id
- * Update a category
- * Only admins can update categories
  */
 router.put("/:id", authenticateToken, authorizeAdmin, async (req, res) => {
   const { id } = req.params;
@@ -106,7 +101,6 @@ router.put("/:id", authenticateToken, authorizeAdmin, async (req, res) => {
     });
     res.json(updatedCategory);
   } catch (error) {
-    // If category not found, Prisma will throw. We can catch that:
     if (error.code === "P2025") {
       return res.status(404).json({ error: "Category not found" });
     }
@@ -116,8 +110,6 @@ router.put("/:id", authenticateToken, authorizeAdmin, async (req, res) => {
 
 /**
  * DELETE /categories/:id
- * Delete a category
- * Only admins can delete categories
  */
 router.delete("/:id", authenticateToken, authorizeAdmin, async (req, res) => {
   const { id } = req.params;

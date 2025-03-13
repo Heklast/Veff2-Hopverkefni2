@@ -1,63 +1,52 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  email     String    @unique
-  password  String
-  role      String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  orders    Order[]
-  reviews   Review[]
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Category {
   id          Int       @id @default(autoincrement())
   name        String    @unique
   description String?
-  products    Product[]
+  Product     Product[]
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  orderDate   DateTime    @default(now())
+  status      String
+  totalAmount Float
+  User        User        @relation(fields: [userId], references: [id])
+  OrderItem   OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  price     Float
+  Order     Order   @relation(fields: [orderId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id])
 }
 
 model Product {
-  id          Int       @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   description String?
   price       Float
   stock       Int
   categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
-  orderItems  OrderItem[]
-  reviews     Review[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model Order {
-  id          Int        @id @default(autoincrement())
-  userId      Int
-  user        User       @relation(fields: [userId], references: [id])
-  orderDate   DateTime   @default(now())
-  status      String
-  totalAmount Float
-  orderItems  OrderItem[]
-}
-
-model OrderItem {
-  id        Int      @id @default(autoincrement())
-  orderId   Int
-  productId Int
-  order     Order    @relation(fields: [orderId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
+  createdAt   DateTime    @default(now())
+  updatedAt DateTime @updatedAt
+  OrderItem   OrderItem[]
+  Category    Category    @relation(fields: [categoryId], references: [id])
+  Review      Review[]
+  image       String?
 }
 
 model Review {
@@ -67,6 +56,18 @@ model Review {
   rating    Int
   comment   String?
   createdAt DateTime @default(now())
-  product   Product  @relation(fields: [productId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+  Product   Product  @relation(fields: [productId], references: [id])
+  User      User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+  Review    Review[]
 }

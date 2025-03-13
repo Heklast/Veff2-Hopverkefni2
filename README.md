@@ -89,6 +89,11 @@ ESLint?
 - Prófar að aðeins umsagnahafi eða admin geti eytt umsögn.
 - Sannreynir að admin geti eytt umsögn og skili árangurs skilaboðum.
 
+**Til að runna frontend:**
+npx prisma migrate reset --þetta er til að eyða úr databasei því annars kemur eh ves með unique bla
+
+npm run dev
+
 
 ## Hvað á eftir að gera:
 
@@ -100,3 +105,4 @@ ESLint?
 6. Klára magn af pull requests
 7. Hýsa með databaseinum
 8. Skrifa Readme
+9. Laga hvaða týpur af myndum eru leyfilegar!!

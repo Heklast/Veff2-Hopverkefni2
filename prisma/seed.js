@@ -23,7 +23,7 @@ async function main() {
 
   // 2. Create regular users
   for (let i = 0; i < 5; i++) {
-    const name = faker.internet.username(); // Updated
+    const name = faker.internet.username();
     const email = faker.internet.email();
     const password = await bcrypt.hash("password", 10);
 
@@ -38,11 +38,16 @@ async function main() {
   }
 
   // 3. Create categories
+  const categoryNames = new Set();
+  while (categoryNames.size < 3) {
+    categoryNames.add(faker.commerce.department());
+  }
+
   const categoryIds = [];
-  for (let i = 0; i < 3; i++) {
+  for (const name of categoryNames) {
     const category = await prisma.category.create({
       data: {
-        name: faker.commerce.department() + i,
+        name,
         description: faker.lorem.sentence(),
       },
     });
@@ -57,8 +62,10 @@ async function main() {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         price: Number(faker.commerce.price()),
-        stock: faker.number.int({ min: 1, max: 100 }), // Updated
+        stock: faker.number.int({ min: 1, max: 100 }),
         categoryId: faker.helpers.arrayElement(categoryIds),
+        image: faker.image.url(640, 480, 'product', true),
+        updatedAt: new Date(),
       },
     });
     productIds.push(product.id);
@@ -68,15 +75,15 @@ async function main() {
   const users = await prisma.user.findMany({ where: { role: "user" } });
   for (const user of users) {
     // 1-2 orders per user
-    for (let i = 0; i < faker.number.int({ min: 1, max: 2 }); i++) { // Updated
+    for (let i = 0; i < faker.number.int({ min: 1, max: 2 }); i++) {
       let totalAmount = 0;
       const orderItemsData = [];
 
-      // 1-3 items
-      const itemCount = faker.number.int({ min: 1, max: 3 }); // Updated
+      // 1-3 items per order
+      const itemCount = faker.number.int({ min: 1, max: 3 });
       for (let j = 0; j < itemCount; j++) {
         const productId = faker.helpers.arrayElement(productIds);
-        const quantity = faker.number.int({ min: 1, max: 5 }); // Updated
+        const quantity = faker.number.int({ min: 1, max: 5 });
 
         const product = await prisma.product.findUnique({
           where: { id: productId },
@@ -98,7 +105,7 @@ async function main() {
           userId: user.id,
           status: "Pending",
           totalAmount,
-          orderItems: {
+          OrderItem: {  
             create: orderItemsData,
           },
         },
@@ -114,7 +121,7 @@ async function main() {
         data: {
           productId: prodId,
           userId: user.id,
-          rating: faker.number.int({ min: 1, max: 5 }), // Updated
+          rating: faker.number.int({ min: 1, max: 5 }),
           comment: faker.lorem.sentence(),
         },
       });

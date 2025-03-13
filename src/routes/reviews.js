@@ -2,13 +2,12 @@ import { Router } from "express";
 import { prisma } from "../utils/prismaClient.js";
 import authMiddleware from "../utils/authMiddleware.js";
 
-const { authenticateToken, authorizeAdmin } = authMiddleware;
+const { authenticateToken} = authMiddleware;
 const router = Router();
 
 /**
  * GET /reviews
- * Returns all reviews (with pagination).
- * Possibly you want GET /products/:productId/reviews instead, up to you.
+ * Returns all reviews
  */
 router.get("/", async (req, res) => {
   let { page = 1, limit = 10 } = req.query;
@@ -23,7 +22,7 @@ router.get("/", async (req, res) => {
       prisma.review.findMany({
         skip,
         take,
-        include: { product: true, user: true },
+        include: { Product: true, User: true },
       }),
       prisma.review.count(),
     ]);
@@ -34,6 +33,7 @@ router.get("/", async (req, res) => {
       totalCount,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error fetching reviews" });
   }
 });
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", authenticateToken, async (req, res) => {
   const { productId, rating, comment } = req.body;
-  const userId = req.user.id; // Provided by authenticateToken middleware
+  const userId = req.user.id; //authenticateToken middleware
 
   if (!productId || !rating) {
     return res.status(400).json({ error: "Missing productId or rating" });
@@ -68,7 +68,6 @@ router.post("/", authenticateToken, async (req, res) => {
 /**
  * PUT /reviews/:id
  * Let the user or an admin update a review
- * (You can refine to only let the review's owner or admin do it.)
  */
 router.put("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
@@ -77,7 +76,6 @@ router.put("/:id", authenticateToken, async (req, res) => {
   const userRole = req.user.role;
 
   try {
-    // First, find the existing review
     const existingReview = await prisma.review.findUnique({
       where: { id: Number(id) },
     });
@@ -85,7 +83,6 @@ router.put("/:id", authenticateToken, async (req, res) => {
       return res.status(404).json({ error: "Review not found" });
     }
 
-    // If not admin, ensure user owns this review
     if (userRole !== "admin" && existingReview.userId !== userId) {
       return res.status(401).json({ error: "Not authorized to update this review" });
     }
@@ -108,7 +105,7 @@ router.put("/:id", authenticateToken, async (req, res) => {
 
 /**
  * DELETE /reviews/:id
- * Let the user or admin delete a review
+ *user or admin can delete a review
  */
 router.delete("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
@@ -131,6 +128,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
     });
     res.json({ message: "Review deleted successfully" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error deleting review" });
   }
 });

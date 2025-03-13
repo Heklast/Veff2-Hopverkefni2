@@ -21,6 +21,7 @@ function authenticateToken(req, res, next) {
     req.user = decoded;
     next(); // All good, proceed
   } catch (error) {
+    console.log(error);
     return res.status(401).json({ error: "Invalid token" });
   }
 }

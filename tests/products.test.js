@@ -2,6 +2,11 @@ import request from "supertest";
 import app from "../src/utils/app.js";
 import { prisma } from "../src/utils/prismaClient.js";
 
+function randomEmail() {
+    return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
+  }
+
+
 describe("Products API", () => {
   let adminToken;
   let userToken;
@@ -17,11 +22,11 @@ describe("Products API", () => {
     // 2. Register + login a normal user
     const userReg = await request(app).post("/auth/register").send({
       username: "testUser",
-      email: "testUser@example.com",
+      email: randomEmail(),
       password: "password"
     });
     const userLogin = await request(app).post("/auth/login").send({
-      email: "testUser@example.com",
+      email: randomEmail(),
       password: "password"
     });
     userToken = userLogin.body.token;

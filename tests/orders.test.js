@@ -2,6 +2,10 @@ import request from "supertest";
 import app from "../src/utils/app.js";
 import { prisma } from "../src/utils/prismaClient.js";
 
+function randomEmail() {
+    return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
+  }
+
 describe("Orders Tests", () => {
   let token;
 
@@ -18,7 +22,7 @@ describe("Orders Tests", () => {
     // You might seed your DB with a known user, or create one here:
     const registerRes = await request(app).post("/auth/register").send({
       username: "userForOrders",
-      email: `userForOrders@test.com`,
+      email: randomEmail(),
       password: "test123",
     });
     expect(registerRes.statusCode).toBe(201);

@@ -3,6 +3,12 @@ import request from "supertest";
 import app from "../src/utils/app.js";
 import { prisma } from "../src/utils/prismaClient.js";
 
+
+function randomEmail() {
+    return `testuser_${Math.floor(Math.random() * 999999)}@email.com`;
+  }
+
+
 describe("Reviews API", () => {
   let adminToken;
   let userToken;
@@ -18,7 +24,7 @@ describe("Reviews API", () => {
     adminToken = adminLogin.body.token;
 
     // 2. Register & log in one normal user (the "review owner")
-    const userEmail = `reviewOwner_${Date.now()}@test.com`;
+    const userEmail = randomEmail();
     await request(app).post("/auth/register").send({
       username: "reviewOwner",
       email: userEmail,
@@ -31,7 +37,7 @@ describe("Reviews API", () => {
     userToken = userLogin.body.token;
 
     // 3. Register & log in another user (to test "Not authorized" for a different user)
-    const secondEmail = `reviewOther_${Date.now()}@test.com`;
+    const secondEmail = randomEmail();
     await request(app).post("/auth/register").send({
       username: "reviewOther",
       email: secondEmail,

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "dev": "node prisma/seed.js && node server.js"
+    "dev": "node prisma/seed.js && node server.js",
+    "lint": "eslint . --ext .js --fix"
   },
   "jest": {
     "testEnvironment": "node"
@@ -38,6 +39,9 @@
     "prisma": "^6.4.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "eslint": "^9.22.0",
+    "globals": "^16.0.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.9",
     "supertest": "^7.0.0"

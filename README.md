@@ -18,23 +18,21 @@ Keyra: node prisma/seed.js
 
 npm run test
 
-**Keyra einfaldan framenda:**
+**Gerðum 2 html skrár fyrir innskráningu og products áður en við áttuðuðm okkur á því að það þyrfti ekki að gera framenda í þessu verkefni**
 
-npm start
+**Keyra einfaldan framenda bara fyrir innskráningu og sjá products:**
+
+Hér er seeding líka, passa að hreinsa fyrst ef búið að seeda áður
+
+npm run dev
 
 ## Admin aðgangur:
 username: admin
 email: admin@admin.com
 password: admin
 
-
-## Til að seeda database:
-Hreinsa fyrst (ef þarf) = npx prisma migrate reset
-Keyra: node prisma/seed.js
-
 # Til að komast interactive í database:
 psql -h localhost -d hopverkefni -U oli
-
 
 ## Tól notuð:
  
@@ -49,6 +47,9 @@ Jest fyrir prófanir
 ESLint skrá og Github actions
 
 Faker til að generatea gögn
+
+bcrypt og JWT token fyrir auðkenningu
+
 
 ## Einfaldur framendi coverage:
 
@@ -119,12 +120,12 @@ npm run dev
 
 ## Hvað á eftir að gera:
 
-1. Seeda 50 raðir í heildina í database = Óli gerði þetta og notaði faker til að búa til gögn
-2. Finna út úr cloudinary/imgix/mux myndum = Hekla búin að setja upp, vantar kannski að leyfa ákveðnar týpur af myndum
-3. Setja upp ESLint = Óli setti upp ESLint en á eftir að kanna villurnar sem það sendir inn
-4. Skrifa Tests = Óli setti upp test fyrir 4 endpoint með jest (gæti vantað fleira)
-5. Runna tests og debugga API = Test suites ættu núna bara að skila passes
 6. Klára magn af pull requests
 7. Hýsa með databaseinum
 8. Skrifa Readme
-9. Laga hvaða týpur af myndum eru leyfilegar!!
+
+VANTAR kannski?
+1. validation og sanitation
+2. "Ef beðið er um eitthvað sem ekki er til skal skila 404."??
+3. "Ef beðið er um einingu eða reynt að framkvæma aðgerð sem ekki er leyfi fyrir skal skila 401."??
+

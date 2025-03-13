@@ -1,13 +1,9 @@
 # Veff2-Hopverkefni1
 
 ## Setja upp verkefni
-**Hlaða niður helstu pökkum:**
+**Builda verkefni:**
 
-npm install
-
-**Setja upp prisma:**
-
-npx prisma init
+npm build
 
 **Seeda database**
 

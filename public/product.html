@@ -47,7 +47,7 @@
     <script>
         async function fetchCategories() {
             try {
-                const response = await fetch("http://localhost:3000/categories");
+                const response = await fetch("/categories");
                 const data = await response.json();
 
                 const categoryFilter = document.getElementById("categoryFilter");
@@ -65,7 +65,7 @@
 
         async function fetchProducts() {
   const categoryId = document.getElementById("categoryFilter").value;
-  let url = "http://localhost:3000/products";
+  let url = "/products";
   
   if (categoryId) {
     url += `?category=${categoryId}`;

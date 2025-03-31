@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 console.log("🛠 Loading environment variables...");
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 console.log(`🚀 Starting server on port ${PORT}...`);
 
 app.listen(PORT, () => {

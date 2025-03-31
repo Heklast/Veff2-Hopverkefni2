@@ -1,0 +1,69 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+type Product = {
+  id: number;
+  name: string;
+  image: string;
+};
+
+export default function HomePage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    async function getProducts() {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+        cache: 'no-store',
+      });
+
+      if (!res.ok) {
+        console.error('Failed to fetch products');
+        return;
+      }
+
+      const json = await res.json();
+      setProducts(json.data || []);
+    }
+
+    getProducts();
+  }, []);
+
+  if (products.length === 0) {
+    return (
+      <main style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <p style={{ color: '#666', fontSize: '1.2rem' }}>Engar vörur fundust</p>
+      </main>
+    );
+  }
+
+  const product = products[index];
+
+  const next = () => setIndex((prev) => (prev + 1) % products.length);
+  const prev = () => {
+    setIndex((prev) =>
+      products.length === 0 ? 0 : (prev - 1 + products.length) % products.length
+    );
+  };
+
+  return (
+    <main className="hero-wrapper">
+      <img src={product.image} alt={product.name} className="hero-image" />
+
+      <div className="hero-overlay">
+        <h1 className="hero-title">{product.name}</h1>
+
+        <Link href="/products" className="hero-button">
+          Skoða allar vörur
+        </Link>
+
+        <div className="hero-controls">
+          <button onClick={prev}>◀</button>
+          <button onClick={next}>▶</button>
+        </div>
+      </div>
+    </main>
+  );
+}

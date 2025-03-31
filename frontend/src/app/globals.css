@@ -108,3 +108,11 @@ h1{
     background-color: #fff;
     text-align: center;
   }
+
+  .login-heading {
+    background-color: transparent !important;
+    padding: 0 !important;
+    color: inherit !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }

@@ -27,16 +27,19 @@ export default async function Header() {
         <Link href="/" className="text-xl font-semibold hover:underline">
           <h1>Heimasíða Heklu og Óla</h1>
         </Link>
-        <nav className="headerNav">
+        <nav className="headerNav flex flex-wrap gap-4">
           {categories.map((cat) => (
-          
-            <Link
-              key={cat.id}
-              href={`/categories/${cat.id}`}
-            >
+            <Link key={cat.id} href={`/categories/${cat.id}`}>
               {cat.name}
             </Link>
           ))}
+          {/* Add login/signup links */}
+          <Link href="/login" className="hover:underline">
+            Login
+          </Link>
+          <Link href="/signup" className="hover:underline">
+            Sign Up
+          </Link>
         </nav>
       </div>
     </header>

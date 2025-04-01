@@ -39,13 +39,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Below is a suggested step-by-step plan outlining the tasks and their order to complete the project:
 
-### Authentication Implementation (Komið)
+### Authentication Implementation (In progress)
 
-- Create a dedicated login page/component that uses the web service API for user authentication.
+- Create a dedicated login page/component that uses the web service API for user authentication. (komið)
 
-- Add a form for entering credentials, handling login requests, and displaying error or success messages.
+- Add a form for entering credentials, handling login requests, and displaying error or success messages. (komið)
 
-- Update the global layout (e.g., Header) to conditionally display login, logout, or user-specific options based on the authentication state.
+- Update the global layout (e.g., Header) to conditionally display login, logout, or user-specific options based on the authentication state. (Komið en vantar stílingu)
 
 ### Additional Pages & Routing
 

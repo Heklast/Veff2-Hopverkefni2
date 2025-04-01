@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type Product = {
   id: number;
@@ -33,23 +34,19 @@ export default function ProductsPage() {
   return (
     <main style={{ padding: '2rem' }}>
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Allar Vörur</h1>
-      <div
-        className='Vorur'
-      >
+      <div className='Vorur'>
         {products.map((product) => (
-          <div
-            key={product.id}
-            className="vara"
-            
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '0.5rem' }}
-            />
-            <h2 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{product.name}</h2>
-            {product.price && <p style={{ color: '#555' }}>{product.price} kr</p>}
-          </div>
+          <Link key={product.id} href={`/products/${product.id}`}>
+            <div className="vara" style={{ cursor: 'pointer' }}>
+              <img
+                src={product.image}
+                alt={product.name}
+                style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '0.5rem' }}
+              />
+              <h2 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{product.name}</h2>
+              {product.price && <p style={{ color: '#555' }}>{product.price} kr</p>}
+            </div>
+          </Link>
         ))}
       </div>
     </main>

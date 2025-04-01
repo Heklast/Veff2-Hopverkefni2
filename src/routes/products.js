@@ -63,7 +63,7 @@ router.get("/:id", async (req, res) => {
   try {
     const product = await prisma.product.findUnique({
       where: { id: Number(id) },
-      include: { category: true },
+      include: { Category: true },
     });
     if (!product) {
       return res.status(404).json({ error: "Product not found" });

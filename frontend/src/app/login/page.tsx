@@ -34,7 +34,7 @@ export default function LoginPage() {
 
       const data = await res.json();
       localStorage.setItem('token', data.token);
-      setSuccess('Login successful! Redirecting to homepage...');
+      setSuccess('Innskráning tókst! Fer aftur á forsíðu...');
       setTimeout(() => {
         router.push('/?forceRefresh=true');
       }, 2000);
@@ -47,32 +47,32 @@ export default function LoginPage() {
   return (
     <main className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.loginHeading + " " + styles.heading}>Login</h1>
+        <h1 className={styles.loginHeading + " " + styles.heading}>Innskráning</h1>
         {error && <p className={styles.error}>{error}</p>}
         {success && <p className={styles.message}>{success}</p>}
         <form onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Sláðu inn tölvupóstfang"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={styles.input}
           />
           <input
             type="password"
-            placeholder="Enter your password"
+            placeholder="Sláðu inn lykilorð"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={styles.input}
           />
           <button type="submit" className={styles.button}>
-            Login
+            Skrá inn
           </button>
         </form>
         <p>
-          Don't have an account?{' '}
+          Ekki með reikning?{' '}
           <Link href="/signup" className={styles.link}>
-            Sign Up
+            Nýskrá
           </Link>
         </p>
       </div>

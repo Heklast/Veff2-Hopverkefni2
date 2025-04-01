@@ -60,7 +60,7 @@ export default function ProductsPage() {
 
       {/* Category Filter */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <label htmlFor="categorySelect" style={{ marginRight: '0.5rem' }}>Filter by Category:</label>
+        <label htmlFor="categorySelect" style={{ marginRight: '0.5rem' }}>Sía eftir flokki:</label>
         <select
           id="categorySelect"
           value={selectedCategory}
@@ -69,7 +69,7 @@ export default function ProductsPage() {
             setSelectedCategory(value === 'all' ? 'all' : Number(value));
           }}
         >
-          <option value="all">All Categories</option>
+          <option value="all">Allir Flokkar</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name}

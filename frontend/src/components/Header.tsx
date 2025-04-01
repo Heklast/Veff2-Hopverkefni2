@@ -26,15 +26,15 @@ export default function Header() {
         <nav className="headerNav flex flex-wrap gap-4">
           {isLoggedIn ? (
             <button onClick={handleLogout} className="hover:underline">
-              Logout
+              Skrá út
             </button>
           ) : (
             <>
               <Link href="/login" className="hover:underline">
-                Login
+                Innskráning
               </Link>
               <Link href="/signup" className="hover:underline">
-                Sign Up
+                Nýskráning
               </Link>
             </>
           )}

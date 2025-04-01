@@ -73,7 +73,7 @@ export default function ProductDetailPage() {
 
           {/* Example color options */}
           <div className={styles.optionsContainer}>
-            <span className={styles.colorLabel}>Color:</span>
+            <span className={styles.colorLabel}>Litur:</span>
             <div className={styles.colorOptions}>
               {colors.map((color) => (
                 <button key={color} className={styles.optionButton}>
@@ -85,7 +85,7 @@ export default function ProductDetailPage() {
 
           {/* Example size options */}
           <div className={styles.optionsContainer}>
-            <span className={styles.sizeLabel}>Size:</span>
+            <span className={styles.sizeLabel}>Stærð:</span>
             <div className={styles.sizeOptions}>
               {sizes.map((size) => (
                 <button key={size} className={styles.optionButton}>
@@ -97,7 +97,7 @@ export default function ProductDetailPage() {
 
           {/* Example length options */}
           <div className={styles.optionsContainer}>
-            <span className={styles.sizeLabel}>Length:</span>
+            <span className={styles.sizeLabel}>Sídd:</span>
             <div className={styles.sizeOptions}>
               {lengthOptions.map((length) => (
                 <button key={length} className={styles.optionButton}>
@@ -108,11 +108,11 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Add to cart button (placeholder) */}
-          <button className={styles.addToCartButton}>Add to basket</button>
+          <button className={styles.addToCartButton}>Bæta í körfu</button>
 
           {/* Back link */}
           <Link href="/products" className={styles.backLink}>
-            Go back
+            Til baka
           </Link>
         </div>
 

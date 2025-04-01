@@ -48,39 +48,39 @@ export default function SignupPage() {
   return (
     <main className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.heading}>Sign Up</h1>
+        <h1 className={styles.heading}>Nýskráning</h1>
         {error && <p className={styles.error}>{error}</p>}
         {success && <p className={styles.message}>{success}</p>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Enter your username"
+            placeholder="Sláðu inn notendanafn"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={styles.input}
           />
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Sláðu inn tölvupóstfang"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={styles.input}
           />
           <input
             type="password"
-            placeholder="Enter your password"
+            placeholder="Sláðu inn lykilorð"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={styles.input}
           />
           <button type="submit" className={styles.button}>
-            Sign Up
+            Nýskrá
           </button>
         </form>
         <p>
-          Already have an account?{' '}
+          Nú þegar með reikning?{' '}
           <Link href="/login" className={styles.link}>
-            Login
+            Innskráning
           </Link>
         </p>
       </div>

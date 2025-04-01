@@ -3,31 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-type Category = {
-  id: string;
-  name: string;
-};
-
 export default function Header() {
-  const [categories, setCategories] = useState<Category[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Fetch categories and check login status on mount
+  // Check login status on mount
   useEffect(() => {
-    async function getCategories() {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
-          cache: "no-store",
-        });
-        const json = await res.json();
-        setCategories(json.data || []);
-      } catch (error) {
-        console.error("Error fetching categories in Header:", error);
-      }
-    }
-    getCategories();
-
-    // Check for token in localStorage to determine login state
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
@@ -44,11 +24,6 @@ export default function Header() {
           <h1>Heimasíða Heklu og Óla</h1>
         </Link>
         <nav className="headerNav flex flex-wrap gap-4">
-          {categories.map((cat) => (
-            <Link key={cat.id} href={`/categories/${cat.id}`}>
-              {cat.name}
-            </Link>
-          ))}
           {isLoggedIn ? (
             <button onClick={handleLogout} className="hover:underline">
               Logout

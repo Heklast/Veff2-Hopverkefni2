@@ -56,7 +56,7 @@ export default function BasketPage() {
         setBasket([]);
         localStorage.removeItem("basket");
       }
-    } catch (error) {
+    } catch {
       setOrderError("Error placing order");
     } finally {
       setPlacingOrder(false);
@@ -73,6 +73,7 @@ export default function BasketPage() {
           <ul style={{ listStyle: "none", padding: 0 }}>
             {basket.map(item => (
               <li key={item.id} style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.image}
                   alt={item.name}

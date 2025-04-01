@@ -52,7 +52,7 @@ export default function OrdersListPage() {
         }
         const json = await res.json();
         setOrders(json.data || []);
-      } catch (err) {
+      } catch {
         setError("Error fetching orders");
       } finally {
         setLoading(false);
@@ -89,6 +89,7 @@ export default function OrdersListPage() {
               <ul style={{ listStyle: "none", padding: 0 }}>
                 {order.OrderItem.map((item) => (
                   <li key={item.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={item.Product.image}
                       alt={item.Product.name}

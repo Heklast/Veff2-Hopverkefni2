@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Product = {
   id: number;
@@ -60,7 +61,9 @@ export default function ProductsPage() {
 
       {/* Category Filter */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <label htmlFor="categorySelect" style={{ marginRight: '0.5rem' }}>Sía eftir flokki:</label>
+        <label htmlFor="categorySelect" style={{ marginRight: '0.5rem' }}>
+          Sía eftir flokki:
+        </label>
         <select
           id="categorySelect"
           value={selectedCategory}
@@ -79,16 +82,37 @@ export default function ProductsPage() {
       </div>
 
       {/* Product List */}
-      <div className="Vorur" style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+      <div
+        className="Vorur"
+        style={{
+          display: 'grid',
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        }}
+      >
         {products.map((product) => (
           <Link key={product.id} href={`/products/${product.id}`}>
-            <div className="vara" style={{ cursor: 'pointer', border: '1px solid #ddd', padding: '0.5rem', borderRadius: '4px' }}>
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{ width: '100%', height: '150px', objectFit: 'cover', marginBottom: '0.5rem' }}
-              />
-              <h2 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{product.name}</h2>
+            <div
+              className="vara"
+              style={{
+                cursor: 'pointer',
+                border: '1px solid #ddd',
+                padding: '0.5rem',
+                borderRadius: '4px',
+              }}
+            >
+              {/* Image container with fixed height */}
+              <div style={{ position: 'relative', width: '100%', height: '150px', marginBottom: '0.5rem' }}>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <h2 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>
+                {product.name}
+              </h2>
               {product.price && <p style={{ color: '#555' }}>{product.price} kr</p>}
             </div>
           </Link>

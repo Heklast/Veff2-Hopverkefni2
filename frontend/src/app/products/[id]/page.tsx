@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import styles from './ProductDetail.module.css';
+import styles from './productDetail.module.css';
 
 type Product = {
   id: number;
@@ -56,7 +56,7 @@ export default function ProductDetailPage() {
         }
         const data = await res.json();
         setProduct(data);
-      } catch (err) {
+      } catch {
         setError('An unexpected error occurred.');
       } finally {
         setLoading(false);
@@ -82,7 +82,7 @@ export default function ProductDetailPage() {
         }
         const json = await res.json();
         setReviews(json.data || []);
-      } catch (err) {
+      } catch {
         setReviewError("Error fetching reviews");
       } finally {
         setReviewsLoading(false);
@@ -95,7 +95,7 @@ export default function ProductDetailPage() {
 
   const addToBasket = () => {
     const basketStr = localStorage.getItem("basket");
-    let basket: BasketItem[] = basketStr ? JSON.parse(basketStr) : [];
+    const basket: BasketItem[] = basketStr ? JSON.parse(basketStr) : [];
     // Check if product already exists in the basket
     const index = basket.findIndex(item => item.id === product!.id);
     if (index !== -1) {
@@ -143,7 +143,7 @@ export default function ProductDetailPage() {
         const newReview = await res.json();
         setReviews([newReview, ...reviews]);
       }
-    } catch (error) {
+    } catch {
       setReviewError("Error creating review");
     }
   };
@@ -233,6 +233,7 @@ export default function ProductDetailPage() {
         </div>
         {/* Right side: product image */}
         <div className={styles.imageContainer}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.image}
             alt={product.name}

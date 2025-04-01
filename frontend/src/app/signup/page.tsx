@@ -33,13 +33,13 @@ export default function SignupPage() {
         return;
       }
 
-      const data = await res.json();
+      await res.json();
       setSuccess('Signup successful! Redirecting to login...');
       // Redirect to login after a short delay to allow user to read the message.
       setTimeout(() => {
         router.push('/login');
       }, 2000);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Signup error:', err);
       setError('An unexpected error occurred');
     }

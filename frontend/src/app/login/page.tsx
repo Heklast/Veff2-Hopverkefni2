@@ -38,7 +38,7 @@ export default function LoginPage() {
       setTimeout(() => {
         router.push('/?forceRefresh=true');
       }, 2000);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Login error:', err);
       setError('An unexpected error occurred');
     }

@@ -39,60 +39,60 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 Below is a suggested step-by-step plan outlining the tasks and their order to complete the project:
 
-Authentication Implementation
+### Authentication Implementation (Komið)
 
-Create a dedicated login page/component that uses the web service API for user authentication.
+- Create a dedicated login page/component that uses the web service API for user authentication.
 
-Add a form for entering credentials, handling login requests, and displaying error or success messages.
+- Add a form for entering credentials, handling login requests, and displaying error or success messages.
 
-Update the global layout (e.g., Header) to conditionally display login, logout, or user-specific options based on the authentication state.
+- Update the global layout (e.g., Header) to conditionally display login, logout, or user-specific options based on the authentication state.
 
-Additional Pages & Routing
+### Additional Pages & Routing
 
-Develop at least three distinct pages beyond the front page and product list. For example:
+- Develop at least three distinct pages beyond the front page and product list. For example:
 
-A detailed product view page that shows a single product’s details.
+1. A detailed product view page that shows a single product’s details.
 
-A search results page that allows users to search products.
+2. A search results page that allows users to search products.
 
-A category-specific page (if not fully covered by current category links).
+3. A category-specific page (if not fully covered by current category links).
 
-Ensure proper routing in Next.js, including handling 404 errors and unauthorized access messages.
+- Ensure proper routing in Next.js, including handling 404 errors and unauthorized access messages.
 
-Image Upload Functionality
+### Image Upload Functionality
 
-Build a form that allows users to upload images.
+- Build a form that allows users to upload images.
 
-Integrate the form with the image API from your web service, including error handling and feedback for the user.
+- Integrate the form with the image API from your web service, including error handling and feedback for the user.
 
-Error Handling and UI States
+### Error Handling and UI States
 
-Implement loading states (e.g., spinners or placeholders) when data is being fetched.
+- Implement loading states (e.g., spinners or placeholders) when data is being fetched.
 
-Ensure error messages are shown when API calls fail.
+- Ensure error messages are shown when API calls fail.
 
-Create and display empty states for pages when there is no data to show.
+C- reate and display empty states for pages when there is no data to show.
 
-UI Enhancements and Active Navigation
+- UI Enhancements and Active Navigation
 
-Enhance the header navigation to visually indicate which page is active.
+- Enhance the header navigation to visually indicate which page is active.
 
-Consider adding persistent elements (e.g., search bar, cart) if required by the assignment.
+- Consider adding persistent elements (e.g., search bar, cart) if required by the assignment.
 
-Global Tooling and Quality Improvements
+### Global Tooling and Quality Improvements
 
-Set up ESLint (and optionally Prettier) to enforce coding standards, and ensure npm run lint produces no errors.
+- Set up ESLint (and optionally Prettier) to enforce coding standards, and ensure npm run lint produces no errors.
 
-Add tests if required, or at least ensure manual testing for all functionalities.
+- Add tests if required, or at least ensure manual testing for all functionalities.
 
-Documentation and Deployment
+### Documentation and Deployment
 
-Update the README.md with detailed setup instructions, admin credentials, and team member information.
+- Update the README.md with detailed setup instructions, admin credentials, and team member information.
 
-Deploy the project to your chosen hosting service and update the README with the live URL.
+- Deploy the project to your chosen hosting service and update the README with the live URL.
 
-Version Control and Collaboration
+### Version Control and Collaboration
 
-Make sure to use Git effectively with frequent commits.
+- Make sure to use Git effectively with frequent commits.
 
-Create at least five pull requests with team reviews to demonstrate proper collaboration.
+- Create at least five pull requests with team reviews to demonstrate proper collaboration.

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import styles from './Login.module.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -44,50 +45,33 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-r from-skysoft to-blush">
-      <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-md">
-        <h1 className="login-heading text-3xl font-bold font-heading text-charcoal mb-6 text-center">
-          Login
-        </h1>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        {success && <p className="text-green-500 text-center mb-4">{success}</p>}
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-charcoal mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-charcoal"
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-charcoal mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-charcoal"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-charcoal text-white py-2 rounded-md hover:bg-opacity-90 transition duration-200"
-          >
+    <main className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.loginHeading + " " + styles.heading}>Login</h1>
+        {error && <p className={styles.error}>{error}</p>}
+        {success && <p className={styles.message}>{success}</p>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+          />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+          />
+          <button type="submit" className={styles.button}>
             Login
           </button>
         </form>
-        <p className="mt-6 text-center text-gray-600">
+        <p>
           Don't have an account?{' '}
-          <Link href="/signup" className="text-charcoal hover:underline">
+          <Link href="/signup" className={styles.link}>
             Sign Up
           </Link>
         </p>

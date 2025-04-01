@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 type Category = {
@@ -5,21 +8,34 @@ type Category = {
   name: string;
 };
 
-async function getCategories(): Promise<Category[]> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
-      cache: "no-store",
-    });
-    const json = await res.json();
-    return json.data || [];
-  } catch (error) {
-    console.error("Error fetching categories in Header:", error);
-    return [];
-  }
-}
+export default function Header() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-export default async function Header() {
-  const categories = await getCategories();
+  // Fetch categories and check login status on mount
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
+          cache: "no-store",
+        });
+        const json = await res.json();
+        setCategories(json.data || []);
+      } catch (error) {
+        console.error("Error fetching categories in Header:", error);
+      }
+    }
+    getCategories();
+
+    // Check for token in localStorage to determine login state
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
 
   return (
     <header className="bg-white shadow-md border-b py-4 px-6">
@@ -33,13 +49,20 @@ export default async function Header() {
               {cat.name}
             </Link>
           ))}
-          {/* Add login/signup links */}
-          <Link href="/login" className="hover:underline">
-            Login
-          </Link>
-          <Link href="/signup" className="hover:underline">
-            Sign Up
-          </Link>
+          {isLoggedIn ? (
+            <button onClick={handleLogout} className="hover:underline">
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link href="/login" className="hover:underline">
+                Login
+              </Link>
+              <Link href="/signup" className="hover:underline">
+                Sign Up
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>

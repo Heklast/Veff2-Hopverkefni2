@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 type Product = {
@@ -12,6 +13,15 @@ type Product = {
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [index, setIndex] = useState(0);
+  const searchParams = useSearchParams();
+
+  // Check for the forceRefresh query parameter and reload the page if present.
+  useEffect(() => {
+    if (searchParams.get('forceRefresh') === 'true') {
+      // Reload the page without the query parameter
+      window.location.replace(window.location.pathname);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     async function getProducts() {
@@ -54,11 +64,9 @@ export default function HomePage() {
 
       <div className="hero-overlay">
         <h1 className="hero-title">{product.name}</h1>
-
         <Link href="/products" className="hero-button">
           Skoða allar vörur
         </Link>
-
         <div className="hero-controls">
           <button onClick={prev}>◀</button>
           <button onClick={next}>▶</button>

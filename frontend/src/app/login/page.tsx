@@ -36,7 +36,7 @@ export default function LoginPage() {
       localStorage.setItem('token', data.token);
       setSuccess('Login successful! Redirecting to homepage...');
       setTimeout(() => {
-        router.push('/');
+        router.push('/?forceRefresh=true');
       }, 2000);
     } catch (err: any) {
       console.error('Login error:', err);

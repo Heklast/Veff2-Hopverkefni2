@@ -52,7 +52,7 @@ export default function BasketPage() {
         const data = await res.json();
         setOrderError(data.error || "Error placing order");
       } else {
-        setOrderSuccess("Pöntun skráð með góðum árangri!");
+        setOrderSuccess("Pöntun tókst!");
         setBasket([]);
         localStorage.removeItem("basket");
       }

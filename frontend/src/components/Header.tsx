@@ -5,27 +5,11 @@ import Link from "next/link";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [basketCount, setBasketCount] = useState(0);
 
   useEffect(() => {
-    // Check login status
+    // On mount, check if a token exists
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-
-    // Get basket count from localStorage
-    const basketStr = localStorage.getItem("basket");
-    if (basketStr) {
-      try {
-        const basket = JSON.parse(basketStr);
-        const count = basket.reduce(
-          (acc: number, item: { quantity: number }) => acc + item.quantity,
-          0
-        );
-        setBasketCount(count);
-      } catch (error) {
-        setBasketCount(0);
-      }
-    }
   }, []);
 
   const handleLogout = () => {
@@ -41,7 +25,7 @@ export default function Header() {
         </Link>
         <nav className="headerNav flex flex-wrap gap-4 items-center">
           <Link href="/basket" className="hover:underline">
-            Karfa ({basketCount})
+            Karfa
           </Link>
           {isLoggedIn && (
             <Link href="/orders" className="hover:underline">

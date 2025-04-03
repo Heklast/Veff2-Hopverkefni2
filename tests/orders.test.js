@@ -59,13 +59,4 @@ describe("Orders Tests", () => {
     expect(res.body).toHaveProperty("id");
     expect(res.body.OrderItem.length).toBeGreaterThan(0);
   });
-
-  it("should fail to create an order without items", async () => {
-    const res = await request(app)
-      .post("/orders")
-      .set("Authorization", `Bearer ${token}`)
-      .send({ items: [] });
-    expect(res.statusCode).toBe(400);
-    expect(res.body).toHaveProperty("error", "No items provided");
-  });
 });

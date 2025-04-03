@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/hopverkefni?schema=public"
+      JWT_SECRET: "supersecrettoken"
     services:
       postgres:
         image: postgres:14

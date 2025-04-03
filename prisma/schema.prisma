@@ -47,6 +47,8 @@ model Product {
   Category    Category    @relation(fields: [categoryId], references: [id])
   Review      Review[]
   image       String?
+
+  @@map("product")
 }
 
 model Review {

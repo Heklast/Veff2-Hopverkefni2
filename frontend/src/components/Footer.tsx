@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
           © {new Date().getFullYear()} Vefverslun Heklu og Óla. Allur réttur áskilinn.
         </div>
         <div className="flex gap-4">
-          <a href="/admin" className="text-red-500 hover:underline text-red-500">
+          <a href="/admin/products" className="text-red-500 hover:underline text-red-500">
             Admin
           </a>
         </div>

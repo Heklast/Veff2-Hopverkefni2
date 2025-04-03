@@ -46,6 +46,7 @@ router.get("/", async (req, res) => {
         where: whereClause,
         skip,
         take,
+        orderBy: { createdAt: 'desc' }  // New ordering clause
       }),
       prisma.product.count({
         where: whereClause,

@@ -59,6 +59,8 @@ Below is a suggested step-by-step plan outlining the tasks and their order to co
 
 4. A way to order (Komið)
 
+5. Admin page to create/edit/delete products (Byrjað, vantar leið til að setja inn myndir)
+
 ### Image Upload Functionality
 
 - Build a form that allows users to upload images.
@@ -71,7 +73,7 @@ Below is a suggested step-by-step plan outlining the tasks and their order to co
 
 - Ensure error messages are shown when API calls fail.
 
-C- reate and display empty states for pages when there is no data to show.
+- Create and display empty states for pages when there is no data to show.
 
 - UI Enhancements and Active Navigation
 

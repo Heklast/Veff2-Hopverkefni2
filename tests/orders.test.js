@@ -12,16 +12,11 @@ function randomUsername() {
 
 describe("Orders Tests", () => {
   let token;
+  let userEmail;
 
-  beforeAll(async () => {
-  });
-
-  afterAll(async () => {
-    await prisma.$disconnect();
-  });
-
-  it("should login as user so we can create an order", async () => {
-    const userEmail = randomEmail();
+  beforeEach(async () => {
+    // Create a new user and login to get a fresh token before each test.
+    userEmail = randomEmail();
     const username = randomUsername();
     const registerRes = await request(app).post("/auth/register").send({
       username,
@@ -38,6 +33,10 @@ describe("Orders Tests", () => {
     expect(loginRes.body).toHaveProperty("token");
 
     token = loginRes.body.token;
+  });
+
+  afterAll(async () => {
+    await prisma.$disconnect();
   });
 
   it("should create an order with valid items", async () => {

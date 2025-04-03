@@ -1,0 +1,161 @@
+/* Overall container */
+.main {
+  padding: 2rem;
+}
+
+/* Product detail layout: left text, right image */
+.productDetailContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* LEFT COLUMN */
+.infoContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.price {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+/* Button styles (black background) */
+.addToCartButton {
+  padding: 0.75rem 1rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  width: fit-content;
+  transition: background-color 0.2s ease;
+}
+
+.addToCartButton:hover {
+  background-color: #333;
+}
+
+.backLink {
+  margin-top: 1rem;
+  color: blue;
+  text-decoration: underline;
+}
+
+/* RIGHT COLUMN */
+.imageContainer {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.bigImage {
+  width: 400px;  /* Fixed width */
+  height: auto;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Reviews Section */
+.reviewsSection {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.reviewsSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.reviewsList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.reviewItem {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.reviewerName {
+  font-weight: bold;
+}
+
+.reviewRating {
+  color: #f39c12; /* star color */
+}
+
+.reviewDate {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.reviewComment {
+  margin: 0;
+}
+
+/* Review form styles */
+.reviewForm {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.reviewForm h3 {
+  margin-top: 0;
+}
+
+.reviewTextarea {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.submitReviewButton {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitReviewButton:hover {
+  background-color: #333;
+}

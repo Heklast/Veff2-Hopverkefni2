@@ -51,13 +51,15 @@ Below is a suggested step-by-step plan outlining the tasks and their order to co
 
 - Develop at least three distinct pages beyond the front page and product list. For example:
 
-1. A detailed product view page that shows a single product’s details.
+1. A detailed product view page that shows a single product’s details. (Komið en vantar stílingu, REVIEW STOREAST EKKI)
 
-2. A search results page that allows users to search products.
+2. An order history page to view your orders (komið)
 
-3. A category-specific page (if not fully covered by current category links).
+3. An entry page to post new products
 
-- Ensure proper routing in Next.js, including handling 404 errors and unauthorized access messages.
+4. A way to order (Komið)
+
+5. Admin page to create/edit/delete products (Byrjað, vantar leið til að setja inn myndir)
 
 ### Image Upload Functionality
 
@@ -71,7 +73,7 @@ Below is a suggested step-by-step plan outlining the tasks and their order to co
 
 - Ensure error messages are shown when API calls fail.
 
-C- reate and display empty states for pages when there is no data to show.
+- Create and display empty states for pages when there is no data to show.
 
 - UI Enhancements and Active Navigation
 

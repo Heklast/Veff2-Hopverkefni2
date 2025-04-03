@@ -27,28 +27,36 @@ const upload = multer({
   }
 });
 
-// GET /products (with optional pagination)
+// GET all products or filter by category
 router.get("/", async (req, res) => {
-  let { page = 1, limit = 10 } = req.query;
-  page = parseInt(page, 10);5
-  limit = parseInt(limit, 10);
-
-  const skip = (page - 1) * limit;
-  const take = limit;
-
+  const { page = 1, limit = 10, categoryId } = req.query;
+  const parsedPage = parseInt(page, 10);
+  const parsedLimit = parseInt(limit, 10);
+  const skip = (parsedPage - 1) * parsedLimit;
+  const take = parsedLimit;
+  
+  const whereClause = {};
+  if (categoryId) {
+    whereClause.categoryId = Number(categoryId);
+  }
+  
   try {
     const [products, totalCount] = await Promise.all([
       prisma.product.findMany({
+        where: whereClause,
         skip,
         take,
+        orderBy: { createdAt: 'desc' }  // New ordering clause
       }),
-      prisma.product.count(),
+      prisma.product.count({
+        where: whereClause,
+      }),
     ]);
-
+  
     res.json({
       data: products,
-      currentPage: page,
-      totalPages: Math.ceil(totalCount / limit),
+      currentPage: parsedPage,
+      totalPages: Math.ceil(totalCount / parsedLimit),
       totalCount,
     });
   } catch (error) {
@@ -63,7 +71,7 @@ router.get("/:id", async (req, res) => {
   try {
     const product = await prisma.product.findUnique({
       where: { id: Number(id) },
-      include: { category: true },
+      include: { Category: true },
     });
     if (!product) {
       return res.status(404).json({ error: "Product not found" });

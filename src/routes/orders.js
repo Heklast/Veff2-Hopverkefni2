@@ -2,12 +2,12 @@ import { Router } from "express";
 import { prisma } from "../utils/prismaClient.js";
 import authMiddleware from "../utils/authMiddleware.js";
 
-const { authenticateToken} = authMiddleware;
+const { authenticateToken } = authMiddleware;
 const router = Router();
 
 /**
  * GET /orders
- * If admin can see all orders, else can only see the orders of the logged in user.
+ * If admin you can see all orders, else you can only see the orders of the logged in user.
  */
 router.get("/", authenticateToken, async (req, res) => {
   const userId = req.user.id;
@@ -33,9 +33,9 @@ router.get("/", authenticateToken, async (req, res) => {
         take,
         include: {
           OrderItem: {
-            include: { product: true },
+            include: { Product: true },
           },
-          user: true,
+          User: true,
         },
       }),
       prisma.order.count({ where: whereClause }),
@@ -55,7 +55,7 @@ router.get("/", authenticateToken, async (req, res) => {
 
 /**
  * GET /orders/:id
- *if admin then he can see any order, else must be your own order
+ * If admin then they can see any order, else the user can only see their own order.
  */
 router.get("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
@@ -67,9 +67,9 @@ router.get("/:id", authenticateToken, async (req, res) => {
       where: { id: Number(id) },
       include: {
         OrderItem: {
-          include: { product: true },
+          include: { Product: true },
         },
-        user: true,
+        User: true,
       },
     });
     if (!order) {
@@ -89,7 +89,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
 
 /**
  * POST /orders
- * Create an order for the logged in user
+ * Create an order for the logged in user.
  */
 router.post("/", authenticateToken, async (req, res) => {
   const userId = req.user.id;
@@ -130,7 +130,7 @@ router.post("/", authenticateToken, async (req, res) => {
       });
     }
 
-    // 3. Create the order, then create the order items
+    // Create the order and its order items.
     const newOrder = await prisma.order.create({
       data: {
         userId,
@@ -145,7 +145,7 @@ router.post("/", authenticateToken, async (req, res) => {
       },
     });
 
-    // 4. Update product stock
+    // Update product stock.
     for (const item of items) {
       const product = products.find((p) => p.id === item.productId);
       const updatedStock = product.stock - item.quantity;
@@ -163,8 +163,8 @@ router.post("/", authenticateToken, async (req, res) => {
 
 /**
  * PUT /orders/:id
- * Admin might update the status (e.g. from "Pending" to "Shipped")
- * Or a user might be allowed to cancel their own order if it’s still "Pending"
+ * Admin might update the status (e.g., from "Pending" to "Shipped"),
+ * or a user might cancel their own order if it’s still "Pending".
  */
 router.put("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;

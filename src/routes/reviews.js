@@ -6,6 +6,7 @@ import { body, validationResult } from "express-validator";
 const { authenticateToken } = authMiddleware;
 const router = Router();
 
+// GET /reviews - Fetch reviews (with Product and User relations)
 router.get("/", async (req, res) => {
   let { page = 1, limit = 10 } = req.query;
   page = parseInt(page, 10);
@@ -17,7 +18,10 @@ router.get("/", async (req, res) => {
       prisma.review.findMany({
         skip,
         take,
-        include: { Product: true, User: true },
+        include: { 
+          Product: true,
+          User: true 
+        },
       }),
       prisma.review.count(),
     ]);
@@ -33,6 +37,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// POST /reviews - Create a new review (with User relation included)
 router.post(
   "/",
   authenticateToken,
@@ -64,6 +69,10 @@ router.post(
           rating: Number(rating),
           comment: comment || null,
         },
+        include: {
+          User: true,  // Include user data
+          Product: true // Optionally include product data if needed
+        }
       });
       res.status(201).json(newReview);
     } catch (error) {
@@ -72,6 +81,7 @@ router.post(
   }
 );
 
+// PUT /reviews/:id - Update an existing review
 router.put(
   "/:id",
   authenticateToken,
@@ -110,6 +120,10 @@ router.put(
           rating: rating !== undefined ? Number(rating) : existingReview.rating,
           comment: comment !== undefined ? comment : existingReview.comment,
         },
+        include: {
+          User: true,
+          Product: true,
+        }
       });
       res.json(updatedReview);
     } catch (error) {
@@ -121,6 +135,7 @@ router.put(
   }
 );
 
+// DELETE /reviews/:id - Delete a review
 router.delete("/:id", authenticateToken, async (req, res) => {
   const { id } = req.params;
   const userId = req.user.id;

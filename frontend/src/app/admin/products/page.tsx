@@ -16,7 +16,30 @@ export default function AdminProductsPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Simple JWT decode function to extract payload
+  function decodeJWT(token: string) {
+    try {
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
+    } catch (err) {
+      return null;
+    }
+  }
+
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("You do not have admin privileges");
+      setLoading(false);
+      return;
+    }
+    const decoded = decodeJWT(token);
+    if (!decoded || decoded.role !== "admin") {
+      setError("You do not have admin privileges");
+      setLoading(false);
+      return;
+    }
+
     async function fetchProducts() {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {

@@ -6,16 +6,21 @@ import { body, validationResult } from "express-validator";
 const { authenticateToken } = authMiddleware;
 const router = Router();
 
-// GET /reviews - Fetch reviews (with Product and User relations)
+// GET /reviews - Fetch reviews for a specific product (with Product and User relations)
 router.get("/", async (req, res) => {
-  let { page = 1, limit = 10 } = req.query;
+  let { page = 1, limit = 10, productId } = req.query;
   page = parseInt(page, 10);
   limit = parseInt(limit, 10);
   const skip = (page - 1) * limit;
   const take = limit;
+
+  // Build a filter if productId is provided
+  const where = productId ? { productId: Number(productId) } : {};
+
   try {
     const [reviews, totalCount] = await Promise.all([
       prisma.review.findMany({
+        where,
         skip,
         take,
         include: { 
@@ -23,7 +28,7 @@ router.get("/", async (req, res) => {
           User: true 
         },
       }),
-      prisma.review.count(),
+      prisma.review.count({ where }),
     ]);
     res.json({
       data: reviews,

@@ -83,18 +83,6 @@ Below is a suggested step-by-step plan outlining the tasks and their order to co
 
 ### Global Tooling and Quality Improvements
 
-- Set up ESLint (and optionally Prettier) to enforce coding standards, and ensure npm run lint produces no errors.
+- Set up ESLint (and optionally Prettier) to enforce coding standards, and ensure npm run lint produces no errors. (ætti að virka)
 
-- Add tests if required, or at least ensure manual testing for all functionalities.
-
-### Documentation and Deployment
-
-- Update the README.md with detailed setup instructions, admin credentials, and team member information.
-
-- Deploy the project to your chosen hosting service and update the README with the live URL.
-
-### Version Control and Collaboration
-
-- Make sure to use Git effectively with frequent commits.
-
-- Create at least five pull requests with team reviews to demonstrate proper collaboration.
+- Add tests if required, or at least ensure manual testing for all functionalities. (tests í rót)

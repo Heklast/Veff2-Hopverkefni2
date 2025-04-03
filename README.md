@@ -1,27 +1,40 @@
 # Veff2-Hopverkefni1
 
-## Setja upp verkefni
+## Keyra verkefni
+
 **Builda verkefni:**
 
+```bash
 npm build
+```
 
 **Seeda database**
 
-Hreinsa fyrst (ef þarf) = npx prisma migrate reset
+```bash
+npx prisma migrate reset
 
-Keyra: node prisma/seed.js
+node prisma/seed.js
+```
 
 **Keyra test:**
 
+```bash
 npm run test
+```
 
-**Keyra einfaldan framenda (bara fyrir innskráningu og sjá products):**
+**Keyra framenda og bakenda í dev:**
 
 Hér er seeding líka, passa að hreinsa fyrst ef búið að seeda áður
 
+´´´bash
+
+frontend/npm run dev
+
 npm run dev
+```
 
 ### Admin aðgangur:
+
 username: admin
 email: admin@admin.com
 password: admin
@@ -277,6 +290,7 @@ Faker til að generatea gögn
 
 bcrypt og JWT token fyrir auðkenningu
 
+React app router fyrir framenda
 
 ## Einfaldur framendi coverage:
 

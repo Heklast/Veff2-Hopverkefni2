@@ -1,5 +1,6 @@
 import app from "./src/utils/app.js";
 import dotenv from "dotenv";
+import 'dotenv/config';
 
 console.log("🛠 Loading environment variables...");
 dotenv.config();

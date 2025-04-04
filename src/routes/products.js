@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { prisma } from "../utils/prismaClient.js";
 import {v2 as cloudinary} from "cloudinary";
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 import authMiddleware from "../utils/authMiddleware.js";
 import multer from "multer";
 import { body, validationResult } from "express-validator";

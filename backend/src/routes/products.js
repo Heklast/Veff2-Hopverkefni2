@@ -32,7 +32,6 @@ const upload = multer({
   }
 });
 
-// GET all products or filter by category
 router.get("/", async (req, res) => {
   const { page = 1, limit = 10, categoryId } = req.query;
   const parsedPage = parseInt(page, 10);

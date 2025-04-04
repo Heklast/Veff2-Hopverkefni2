@@ -65,47 +65,38 @@ export default function OrdersListPage() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Your Orders</h1>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
-        <div>
-          {orders.map((order) => (
-            <div
-              key={order.id}
-              style={{
-                border: "1px solid #ddd",
-                padding: "1rem",
-                marginBottom: "1rem",
-                borderRadius: "4px"
-              }}
-            >
-              <h2>Order #{order.id}</h2>
-              <p>Status: {order.status}</p>
-              <p>Total Amount: {order.totalAmount} kr</p>
-              <p>Order Date: {new Date(order.orderDate).toLocaleString()}</p>
-              <h3>Items:</h3>
-              <ul style={{ listStyle: "none", padding: 0 }}>
-                {order.OrderItem.map((item) => (
-                  <li key={item.id} style={{ display: "flex", alignItems: "center", marginBottom: "0.5rem" }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.Product.image}
-                      alt={item.Product.name}
-                      style={{ width: "50px", height: "50px", objectFit: "cover", marginRight: "0.5rem" }}
-                    />
-                    <span>
-                      {item.Product.name} - {item.price} kr x {item.quantity}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <main className="ordersPage">
+  <h1 className="ordersHeading">Þínar pantanir</h1>
+  {orders.length === 0 ? (
+    <p>Engar pantanir fundust.</p>
+  ) : (
+    <div>
+      {orders.map((order) => (
+        <div key={order.id} className="orderCard">
+          <h2>Pöntun #{order.id}</h2>
+          <p>Status: {order.status}</p>
+          <p>Heildarupphæð: {order.totalAmount} kr</p>
+          <p>Dagsetning: {new Date(order.orderDate).toLocaleString()}</p>
+          <h3>Vörur:</h3>
+          <ul className="orderItemsList">
+            {order.OrderItem.map((item) => (
+              <li key={item.id} className="orderItem">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.Product.image}
+                  alt={item.Product.name}
+                />
+                <span>
+                  {item.Product.name} – {item.price} kr x {item.quantity}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
-      <Link href="/products">Back to Products</Link>
-    </main>
+      ))}
+    </div>
+  )}
+  <Link href="/products" className="backLink">Aftur í vörur</Link>
+</main>
   );
 }

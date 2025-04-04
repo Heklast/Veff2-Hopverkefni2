@@ -139,7 +139,7 @@ export default function EditProductPage() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Edit Product</h1>
+      <h1>Breyta upplýsingum um vöru</h1>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -195,13 +195,13 @@ export default function EditProductPage() {
           ))}
         </select>
         <button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Product"}
+          {loading ? "Updating..." : "Staðfesta"}
         </button>
       </form>
       {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
       {success && <p style={{ color: "green", marginTop: "1rem" }}>{success}</p>}
       <Link href="/admin/products" style={{ display: "block", marginTop: "1rem" }}>
-        Back to Admin Products
+        Aftur á Admin síðu
       </Link>
     </div>
   );

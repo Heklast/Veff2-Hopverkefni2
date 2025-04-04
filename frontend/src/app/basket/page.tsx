@@ -64,37 +64,46 @@ export default function BasketPage() {
   };
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Karfan</h1>
-      {basket.length === 0 ? (
-        <p>Karfan er tóm.</p>
-      ) : (
-        <div>
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {basket.map(item => (
-              <li key={item.id} style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  style={{ width: "100px", height: "100px", objectFit: "cover", marginRight: "1rem" }}
-                />
-                <div>
-                  <h2>{item.name}</h2>
-                  <p>{item.price} kr x {item.quantity}</p>
-                  <button onClick={() => removeItem(item.id)}>Fjarlægja</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-          {orderError && <p style={{ color: "red" }}>{orderError}</p>}
-          {orderSuccess && <p style={{ color: "green" }}>{orderSuccess}</p>}
-          <button onClick={placeOrder} disabled={placingOrder}>
-            {placingOrder ? "Pöntun er í gangi..." : "Staðfesta pöntun"}
-          </button>
-        </div>
-      )}
-      <Link href="/products">Til baka</Link>
-    </main>
-  );
-}
+    <main className="basketPage">
+    <h1 className="basketHeading">Karfan</h1>
+    {basket.length === 0 ? (
+      <p>Karfan er tóm.</p>
+    ) : (
+      <div>
+        <ul className="basketList">
+          {basket.map(item => (
+            <li key={item.id} className="basketItem">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={item.image} alt={item.name} />
+              <div className="basketItemDetails">
+                <h2>{item.name}</h2>
+                <p>{item.price} kr x {item.quantity}</p>
+                <button
+                  className="removeButton"
+                  onClick={() => removeItem(item.id)}
+                >
+                  Fjarlægja
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+  
+        {orderError && (
+          <p className="orderMessage error">{orderError}</p>
+        )}
+        {orderSuccess && (
+          <p className="orderMessage success">{orderSuccess}</p>
+        )}
+  
+        <button
+          onClick={placeOrder}
+          className="placeOrderButton"
+          disabled={placingOrder}
+        >
+          {placingOrder ? "Pöntun er í gangi..." : "Staðfesta pöntun"}
+        </button>
+      </div>
+    )}
+    <Link href="/products" className="backLink">Til baka</Link>
+  </main>);}

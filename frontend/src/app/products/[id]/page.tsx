@@ -67,12 +67,10 @@ export default function ProductDetailPage() {
     }
   }, [id]);
 
-  // Fetch reviews for this product
   useEffect(() => {
     async function fetchReviews() {
       setReviewsLoading(true);
       try {
-        // Assuming your reviews endpoint can filter by productId
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews?productId=${id}`, {
           cache: 'no-store',
         });
@@ -96,7 +94,6 @@ export default function ProductDetailPage() {
   const addToBasket = () => {
     const basketStr = localStorage.getItem("basket");
     const basket: BasketItem[] = basketStr ? JSON.parse(basketStr) : [];
-    // Check if product already exists in the basket
     const index = basket.findIndex(item => item.id === product!.id);
     if (index !== -1) {
       basket[index].quantity += 1;
@@ -112,8 +109,6 @@ export default function ProductDetailPage() {
     localStorage.setItem("basket", JSON.stringify(basket));
     alert("Vörunni var bætt við körfuna!");
   };
-
-  // Submit a new review
   const submitReview = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -155,21 +150,27 @@ export default function ProductDetailPage() {
   return (
     <main className={styles.main}>
       <div className={styles.productDetailContainer}>
-        {/* Left side: textual info */}
         <div className={styles.infoContainer}>
           <h1 className={styles.productName}>{product.name}</h1>
-          {product.price && (
+          <div className={styles.verd}>
+         <h2>Verð vöru: </h2> 
+         <div>{product.price && (
             <p className={styles.price}>{product.price} kr</p>
-          )}
+          )}</div></div>
+          <div className={styles.verd}>
+          <h2>Lýsing á vöru: </h2> 
+          <div>
           {product.description && (
             <p className={styles.description}>{product.description}</p>
-          )}
-          <button onClick={addToBasket} className={styles.addToCartButton}>
-            Bæta í körfu
-          </button>
-          <Link href="/products" className={styles.backLink}>
-            Til baka
-          </Link>
+          )}</div></div>
+         <div className={styles.verd}>
+  <button onClick={addToBasket} className={styles.addToCartButton}>
+    Bæta í körfu
+  </button>
+  <Link href="/products" className={styles.backLink}>
+    Til baka
+  </Link>
+</div>
 
           {/* Reviews Section */}
           <div className={styles.reviewsSection}>

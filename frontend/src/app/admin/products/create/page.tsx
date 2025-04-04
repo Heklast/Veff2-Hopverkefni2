@@ -102,8 +102,7 @@ export default function CreateProductPage() {
         console.log("Image uploaded successfully");
         setSuccess("Product and image uploaded successfully!");
       }
-      setSuccess("Product created successfully!");
-      // Redirect back to admin products after a short delay
+      setSuccess("Vara búin til!");
       setTimeout(() => {
         router.push("/admin/products");
       }, 2000);
@@ -121,7 +120,7 @@ export default function CreateProductPage() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Create New Product</h1>
+      <h1>Búa til nýja vöru</h1>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -133,27 +132,27 @@ export default function CreateProductPage() {
       >
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Heiti"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
         <textarea
-          placeholder="Description"
+          placeholder="Lýsing"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
         <input
           type="number"
-          placeholder="Price"
+          placeholder="Verð"
           value={price}
           onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
           required
         />
         <input
           type="number"
-          placeholder="Stock"
+          placeholder="Fjöldi"
           value={stock}
           onChange={(e) => setStock(e.target.value === "" ? "" : Number(e.target.value))}
           required
@@ -163,7 +162,7 @@ export default function CreateProductPage() {
           onChange={(e) => setCategoryId(e.target.value === "" ? "" : Number(e.target.value))}
           required
         >
-          <option value="">Select Category</option>
+          <option value="">Veldu flokk</option>
           {categories.map(cat => (
             <option key={cat.id} value={cat.id}>
               {cat.name}
@@ -179,13 +178,13 @@ export default function CreateProductPage() {
   required
 />
         <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Create Product"}
+          {loading ? "Creating..." : "Búa til vöru"}
         </button>
       </form>
       {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
       {success && <p style={{ color: "green", marginTop: "1rem" }}>{success}</p>}
       <Link href="/admin/products" style={{ display: "block", marginTop: "1rem" }}>
-        Back to Admin Products
+        Aftur á Admin Síðu
       </Link>
     </div>
   );

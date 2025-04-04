@@ -16,7 +16,6 @@ export default function AdminProductsPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Simple JWT decode function to extract payload
   function decodeJWT(token: string) {
     try {
       const payload = token.split('.')[1];
@@ -29,13 +28,13 @@ export default function AdminProductsPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setError("You do not have admin privileges");
+      setError("Þú ert ekki admin");
       setLoading(false);
       return;
     }
     const decoded = decodeJWT(token);
     if (!decoded || decoded.role !== "admin") {
-      setError("You do not have admin privileges");
+      setError("Þú ert ekki admin");
       setLoading(false);
       return;
     }
@@ -65,7 +64,7 @@ export default function AdminProductsPage() {
   }, []);
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (!confirm("Ertu viss um að þú viljir eyða?")) return;
     const token = localStorage.getItem("token");
     try {
       // Call the DELETE endpoint from products.js (protected by admin middleware)
@@ -76,11 +75,11 @@ export default function AdminProductsPage() {
         }
       });
       if (!res.ok) {
-        throw new Error("Failed to delete product");
+        throw new Error("Gekk ekki að eyða");
       }
       setProducts(products.filter(p => p.id !== id));
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to delete product");
+      alert(err instanceof Error ? err.message : "Gekk ekki að eyða");
     }
   };
 
@@ -88,36 +87,33 @@ export default function AdminProductsPage() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Admin Product Management</h1>
-      <Link href="/admin/products/create">Add New Product</Link>
-      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
-        <thead>
-          <tr>
-            <th style={{ borderBottom: "1px solid #ddd", padding: "0.5rem" }}>ID</th>
-            <th style={{ borderBottom: "1px solid #ddd", padding: "0.5rem" }}>Name</th>
-            <th style={{ borderBottom: "1px solid #ddd", padding: "0.5rem" }}>Price</th>
-            <th style={{ borderBottom: "1px solid #ddd", padding: "0.5rem" }}>Stock</th>
-            <th style={{ borderBottom: "1px solid #ddd", padding: "0.5rem" }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(prod => (
-            <tr key={prod.id}>
-              <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>{prod.id}</td>
-              <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>{prod.name}</td>
-              <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>{prod.price} kr</td>
-              <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>{prod.stock}</td>
-              <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>
-                <Link href={`/admin/products/edit/${prod.id}`}>Edit</Link>
-                <button style={{ marginLeft: "1rem" }} onClick={() => handleDelete(prod.id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <div className="adminPage">
+  <h1 className="adminHeading">Admin Síða</h1>
+  <Link href="/admin/products/create" className="adminAddLink">
+    Bæta við vöru
+  </Link>
+
+  <table className="adminTable">
+    <thead>
+      <tr>
+        <th>Heiti</th>
+        <th>Verð</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {products.map(prod => (
+        <tr key={prod.id}>
+          <td>{prod.name}</td>
+          <td>{prod.price} kr</td>
+          <td className="adminActions">
+            <Link href={`/admin/products/edit/${prod.id}`}>Breyta</Link>
+            <button onClick={() => handleDelete(prod.id)}>Eyða</button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
   );
 }

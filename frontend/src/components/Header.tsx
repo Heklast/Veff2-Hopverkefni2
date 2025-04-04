@@ -17,36 +17,23 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-md border-b py-4 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-        <Link href="/" className="text-xl font-semibold hover:underline">
-          <h1>Vefverslun Heklu og Óla</h1>
-        </Link>
-        <nav className="headerNav flex flex-wrap gap-4 items-center">
-          <Link href="/basket" className="hover:underline">
-            Karfa
-          </Link>
-          {isLoggedIn && (
-            <Link href="/orders" className="hover:underline">
-              Pantanir
-            </Link>
-          )}
-          {isLoggedIn ? (
-            <button onClick={handleLogout} className="hover:underline">
-              Skrá út
-            </button>
-          ) : (
-            <>
-              <Link href="/login" className="hover:underline">
-                Innskráning
-              </Link>
-              <Link href="/signup" className="hover:underline">
-                Nýskráning
-              </Link>
-            </>
-          )}
-        </nav>
-      </div>
-    </header>
-  );
+    <header className="header">
+  <div className="header-inner">
+    <Link href="/" className="logo">
+      <h1>Vefverslun Heklu og Óla</h1>
+    </Link>
+    <nav className="headerNav">
+      <Link href="/basket">Karfa</Link>
+      {isLoggedIn && <Link href="/orders">Pantanir</Link>}
+      {isLoggedIn ? (
+        <button onClick={handleLogout}>Skrá út</button>
+      ) : (
+        <>
+          <Link href="/login">Innskráning</Link>
+          <Link href="/signup">Nýskráning</Link>
+        </>
+      )}
+    </nav>
+  </div>
+</header>)
 }

@@ -1,17 +1,19 @@
-/* Overall container */
 .main {
   padding: 2rem;
+  font-family: system-ui, sans-serif;
+  background-color: #fdfdfd;
+  color: #222;
 }
 
-/* Product detail layout: left text, right image */
 .productDetailContainer {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 3rem;
   align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* LEFT COLUMN */
 .infoContainer {
   flex: 1;
   display: flex;
@@ -19,46 +21,54 @@
 }
 
 .productName {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.3rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .price {
-  font-size: 1.25rem;
-  color: #333;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 1.5rem;
 }
 
 .description {
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
 }
 
-/* Button styles (black background) */
 .addToCartButton {
-  padding: 0.75rem 1rem;
-  background-color: #000;
-  color: #fff;
+  background-color: #0f172a;
+  color: white;
+  padding: 0.75rem 1.25rem;
   border: none;
-  cursor: pointer;
+  border-radius: 6px;
   font-size: 1rem;
-  margin-top: 1rem;
-  border-radius: 4px;
-  width: fit-content;
+  font-weight: 500;
+  cursor: pointer;
   transition: background-color 0.2s ease;
+  width: fit-content;
 }
 
 .addToCartButton:hover {
-  background-color: #333;
+  background-color: #1e293b;
 }
 
 .backLink {
-  margin-top: 1rem;
-  color: blue;
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backLink:hover {
   text-decoration: underline;
 }
 
-/* RIGHT COLUMN */
 .imageContainer {
   flex: 0 0 auto;
   display: flex;
@@ -67,37 +77,37 @@
 }
 
 .bigImage {
-  width: 400px;  /* Fixed width */
+  width: 400px;
   height: auto;
   object-fit: cover;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
-/* Reviews Section */
 .reviewsSection {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ddd;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
 }
 
 .reviewsSection h2 {
   font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
 .reviewsList {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin: 0;
 }
 
 .reviewItem {
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  padding: 1rem;
   margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  background-color: #f9f9f9;
+  border: 1px solid #d1d5db;
 }
 
 .reviewHeader {
@@ -105,6 +115,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
 }
 
 .reviewerName {
@@ -112,7 +124,7 @@
 }
 
 .reviewRating {
-  color: #f39c12; /* star color */
+  color: #f59e0b;
 }
 
 .reviewDate {
@@ -121,41 +133,82 @@
 }
 
 .reviewComment {
-  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 0.25rem;
 }
 
-/* Review form styles */
 .reviewForm {
-  margin-top: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #fff;
+  margin-top: 2rem;
 }
 
 .reviewForm h3 {
-  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.reviewForm label {
+  font-weight: 500;
+}
+
+.reviewForm select {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .reviewTextarea {
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   padding: 0.5rem;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  resize: vertical;
+  font-family: inherit;
 }
 
 .submitReviewButton {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #000;
-  color: #fff;
+  margin-top: 1rem;
+  background-color: #0f172a;
+  color: white;
+  padding: 0.6rem 1.25rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .submitReviewButton:hover {
-  background-color: #333;
+  background-color: #1e293b;
+}
+@media (max-width: 768px) {
+  .productDetailContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .imageContainer {
+    justify-content: center;
+  }
+
+  .bigImage {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+.verd{
+  display:flex;
+  flex-direction: row;
+  gap:1rem;
+  align-items: baseline;
 }

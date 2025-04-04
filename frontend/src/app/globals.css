@@ -124,3 +124,255 @@ h1{
     text-align: center;
     margin-bottom: 1.5rem;
   }
+  
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .main-content {
+    flex: 1;
+  }
+  .basketPage {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .basketHeading {
+    font-size: 2rem;
+    text-align: center;
+    color: #5d5353;
+    margin-bottom: 2rem;
+  }
+  
+  .basketList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .basketItem {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .basketItem img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+  }
+  
+  .basketItemDetails h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .basketItemDetails p {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .removeButton {
+    background-color: transparent;
+    color: #e11d48;
+    border: 1px solid #e11d48;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .removeButton:hover {
+    background-color: #e11d48;
+    color: white;
+  }
+  
+  .placeOrderButton {
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #0f172a;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .placeOrderButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .placeOrderButton:hover:not(:disabled) {
+    background-color: #1e293b;
+  }
+  
+  .orderMessage {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+  
+  .orderMessage.success {
+    color: green;
+  }
+  
+  .orderMessage.error {
+    color: red;
+  }
+  
+  .backLink {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #2563eb;
+    text-decoration: underline;
+  }
+
+  .ordersPage {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .ordersHeading {
+    font-size: 2rem;
+    text-align: center;
+    color: #5d5353;
+    margin-bottom: 2rem;
+  }
+  
+  .orderCard {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .orderCard h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .orderCard p {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .orderItemsList {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  
+  .orderItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .orderItem img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .orderItem span {
+    font-size: 0.95rem;
+    color: #444;
+  }
+  
+  .orderError {
+    color: red;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .backLink {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  .adminPage {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .adminHeading {
+    font-size: 2rem;
+    text-align: center;
+    color: #001858;
+    margin-bottom: 2rem;
+  }
+  
+  .adminAddLink {
+    display: inline-block;
+    background-color: #f582ae;
+    color: #001858;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    margin-bottom: 1.5rem;
+  }
+  
+  .adminAddLink:hover {
+    background-color: #ff8fab;
+  }
+  
+  .adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 24, 88, 0.05);
+  }
+  
+  .adminTable th,
+  .adminTable td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #f3d2c1;
+  }
+  
+  .adminTable th {
+    background-color: #f3d2c1;
+    color: #001858;
+    font-weight: 600;
+  }
+  
+  .adminTable td {
+    color: #172c66;
+  }
+  
+  .adminActions a {
+    color: #2563eb;
+    text-decoration: underline;
+    margin-right: 1rem;
+  }
+  
+ 

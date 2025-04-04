@@ -17,6 +17,14 @@ body{
     font-size: larger;
     margin:0;
 }
+.fotur{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: aquamarine;
+    padding: 1rem;
+}
+
 
 h1{
     background-color: #e4f0f5;

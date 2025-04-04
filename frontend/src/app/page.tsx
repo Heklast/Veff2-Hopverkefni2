@@ -29,6 +29,7 @@ export default function HomePage() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
         cache: 'no-store',
       });
+      console.log(res);
       if (!res.ok) {
         console.error('Failed to fetch products');
         return;

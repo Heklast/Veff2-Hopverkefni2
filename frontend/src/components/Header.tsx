@@ -7,7 +7,6 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // On mount, check if a token exists
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
@@ -21,7 +20,7 @@ export default function Header() {
     <header className="bg-white shadow-md border-b py-4 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <Link href="/" className="text-xl font-semibold hover:underline">
-          <h1>Heimasíða Heklu og Óla</h1>
+          <h1>Vefverslun Heklu og Óla</h1>
         </Link>
         <nav className="headerNav flex flex-wrap gap-4 items-center">
           <Link href="/basket" className="hover:underline">

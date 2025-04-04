@@ -58,4 +58,4 @@ jobs:
 
       - name: Test
         if: always()
-        run: npm test
+        run: npm run test

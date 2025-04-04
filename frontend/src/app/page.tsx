@@ -62,8 +62,8 @@ export default function HomePage() {
         src={product.image}
         alt={product.name}
         className="hero-image"
-        width={800}  // Adjust width as needed
-        height={600} // Adjust height as needed
+        width={800}  
+        height={600} 
         priority
       />
       <div className="hero-overlay">
@@ -79,3 +79,4 @@ export default function HomePage() {
     </main>
   );
 }
+export const dynamic = 'force-dynamic';

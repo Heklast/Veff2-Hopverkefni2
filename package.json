@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/olimarel/Veff2-Hopverkefni1#readme",
   "dependencies": {
+    "18": "^0.0.0",
     "@faker-js/faker": "^9.6.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",

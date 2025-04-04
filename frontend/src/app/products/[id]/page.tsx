@@ -143,7 +143,7 @@ export default function ProductDetailPage() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>...</p>;
   if (error) return <p>{error}</p>;
   if (!product) return <p>No product found.</p>;
 
@@ -176,7 +176,7 @@ export default function ProductDetailPage() {
           <div className={styles.reviewsSection}>
             <h2>Ummæli</h2>
             {reviewsLoading ? (
-              <p>Loading reviews...</p>
+              <p>...</p>
             ) : reviews.length === 0 ? (
               <p>Engin ummæli hafa verið skilin enn.</p>
             ) : (

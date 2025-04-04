@@ -83,7 +83,7 @@ export default function AdminProductsPage() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (

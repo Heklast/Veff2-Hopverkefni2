@@ -61,7 +61,7 @@ export default function OrdersListPage() {
     fetchOrders();
   }, []);
 
-  if (loading) return <p>Loading orders...</p>;
+  if (loading) return <p>...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (

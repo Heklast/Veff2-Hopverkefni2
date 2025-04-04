@@ -135,7 +135,7 @@ export default function EditProductPage() {
     }
   };
 
-  if (fetching) return <p>Loading product details...</p>;
+  if (fetching) return <p>...</p>;
 
   return (
     <div style={{ padding: "2rem" }}>
@@ -195,7 +195,7 @@ export default function EditProductPage() {
           ))}
         </select>
         <button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Staðfesta"}
+          {loading ? "..." : "Staðfesta"}
         </button>
       </form>
       {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}

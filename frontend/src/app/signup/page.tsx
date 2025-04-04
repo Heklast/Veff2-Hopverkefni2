@@ -40,7 +40,7 @@ export default function SignupPage() {
       }, 2000);
     } catch (err: unknown) {
       console.error('Signup error:', err);
-      setError('An unexpected error occurred');
+      setError('An unexpected error occurred.');
     }
   };
 

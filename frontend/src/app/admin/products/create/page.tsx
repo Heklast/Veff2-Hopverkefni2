@@ -20,6 +20,7 @@ export default function CreateProductPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState<File | null>(null);
 
   // Fetch categories for the dropdown
   useEffect(() => {
@@ -62,7 +63,6 @@ export default function CreateProductPage() {
       categoryId: Number(categoryId)
     };
     console.log("Posting product payload:", payload);
-
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
         method: "POST",
@@ -80,6 +80,28 @@ export default function CreateProductPage() {
       }
       const responseData = await res.json();
       console.log("Response data:", responseData);
+      
+      if (image) {
+        const formData = new FormData();
+        formData.append("image", image);
+      
+        const imageRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${responseData.id}/image`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+          body: formData,
+        });
+      
+        if (!imageRes.ok) {
+          const data = await imageRes.json();
+          console.error("Image upload failed:", data);
+          throw new Error(data.error || "Image upload failed");
+        }
+      
+        console.log("Image uploaded successfully");
+        setSuccess("Product and image uploaded successfully!");
+      }
       setSuccess("Product created successfully!");
       // Redirect back to admin products after a short delay
       setTimeout(() => {
@@ -148,6 +170,14 @@ export default function CreateProductPage() {
             </option>
           ))}
         </select>
+        <input
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    if (e.target.files?.[0]) setImage(e.target.files[0]);
+  }}
+  required
+/>
         <button type="submit" disabled={loading}>
           {loading ? "Creating..." : "Create Product"}
         </button>

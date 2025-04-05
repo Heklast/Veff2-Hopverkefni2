@@ -1,14 +1,21 @@
-# Veff2-Hopverkefni1
+# Veff2-Hopverkefni2
 
 ## Keyra verkefni
 
-**Builda verkefni:**
+**Builda og keyra bakenda:**
 
 ```bash
-npm build
+backend/npm run build
+backend/npm run dev
+```
+**Builda og keyra frontenda:**
+
+```bash
+frontend/npm run build
+frontend/npm run dev
 ```
 
-**Seeda database**
+**Seeda database, þetta er inn í build og dev þannig þarf ekki**
 
 ```bash
 npx prisma migrate reset
@@ -22,24 +29,24 @@ node prisma/seed.js
 npm run test
 ```
 
-**Keyra framenda og bakenda í dev:**
-
-Hér er seeding líka, passa að hreinsa fyrst ef búið að seeda áður
-
-´´´bash
-
-frontend/npm run dev
-
-npm run dev
-```
-
 ### Admin aðgangur:
 
 username: admin
 email: admin@admin.com
 password: admin
 
-## Route í vefþjónustu og viðkomandi aðgerð:
+## Nöfn og notendanöfn allra í hóp:
+
+Ólafur Marel Árnason - olimarel
+
+Hekla Scheving Thorsteinsson - heklast
+
+**Hýsing:**
+https://veff2-hopverkefni2-cemm.vercel.app/
+
+
+
+## Lýsing á routes í vefþjónustu og viðkomandi aðgerð (þetta er bara frá því hóp1):
 
 **admin.js:**
 
@@ -292,16 +299,6 @@ bcrypt og JWT token fyrir auðkenningu
 
 React app router fyrir framenda
 
-## Einfaldur framendi coverage:
-
-**Authentication:**
-
-Staðfestir að hægt sé að stofna aðgang og logga sig inn með þeim aðgang.
-
-**Products.js:**
-
-Sýnir hvernig cloudinary tengir saman myndir með gögnum sem generateuð eru með Faker, sýnir einnig hvernig listi af vörum og flokkar þeirra eru geymd.
-
 ## Testing coverage
 
 ### auth.test.js
@@ -312,9 +309,6 @@ Sýnir hvernig cloudinary tengir saman myndir með gögnum sem generateuð eru m
 **Notendainnskráning:**
 - Tryggir að nýskráður notandi geti skráð sig inn með réttum upplýsingum.
 - sannreynir að gildu JWT token sé skilað við innskráningu.
-
-**Aðgangsstýring fyrir admin-routes:**
-- Athugar að notandi sem ekki er admin fái 401 villu við aðgang að admin-routes (t.d. GET /admin).
 
 ### orders.test.js
 **Notendainnskráning fyrir pantanir:**
@@ -352,16 +346,3 @@ Sýnir hvernig cloudinary tengir saman myndir með gögnum sem generateuð eru m
 **Deletion á reviews:**
 - Prófar að aðeins umsagnahafi eða admin geti eytt umsögn.
 - Sannreynir að admin geti eytt umsögn og skili árangurs skilaboðum.
-
-**Til að runna frontend:**
-npx prisma migrate reset --þetta er til að eyða úr databasei því annars kemur eh ves með unique bla
-
-npm run dev
-
-
-## Nöfn og notendanöfn allra í hóp:
-
-Ólafur Marel Árnason - olimarel
-
-Hekla Scheving Thorsteinsson - heklast
-

@@ -178,7 +178,7 @@ export default function CreateProductPage() {
   required
 />
         <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Búa til vöru"}
+          {loading ? "..." : "Búa til vöru"}
         </button>
       </form>
       {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}

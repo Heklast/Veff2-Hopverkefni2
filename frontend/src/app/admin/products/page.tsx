@@ -21,6 +21,7 @@ export default function AdminProductsPage() {
       const payload = token.split('.')[1];
       return JSON.parse(atob(payload));
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
@@ -83,7 +84,7 @@ export default function AdminProductsPage() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (

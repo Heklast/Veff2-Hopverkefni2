@@ -27,6 +27,7 @@ jobs:
           --health-interval 10s 
           --health-timeout 5s 
           --health-retries 5
+
     steps:
       - uses: actions/checkout@v3
 
@@ -34,7 +35,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install backend dependencies
+        working-directory: ./backend
         run: npm install
 
       - name: Wait for PostgreSQL to be ready
@@ -45,17 +47,30 @@ jobs:
           exit 1
 
       - name: Generate Prisma Client
+        working-directory: ./backend
         run: npx prisma generate
 
       - name: Run migrations
+        working-directory: ./backend
         run: npx prisma migrate reset --force
 
       - name: Seed database
+        working-directory: ./backend
         run: node prisma/seed.js
 
-      - name: Lint
+      - name: Lint backend
+        working-directory: ./backend
         run: npm run lint
 
-      - name: Test
+      - name: Test backend
         if: always()
-        run: npm test
+        working-directory: ./backend
+        run: npm run test
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Lint frontend
+        working-directory: ./frontend
+        run: npm run lint

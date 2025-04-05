@@ -34,14 +34,13 @@ export default function SignupPage() {
       }
 
       await res.json();
-      setSuccess('Signup successful! Redirecting to login...');
-      // Redirect to login after a short delay to allow user to read the message.
+      setSuccess('Nýskráning tókst!');
       setTimeout(() => {
         router.push('/login');
       }, 2000);
     } catch (err: unknown) {
       console.error('Signup error:', err);
-      setError('An unexpected error occurred');
+      setError('An unexpected error occurred.');
     }
   };
 

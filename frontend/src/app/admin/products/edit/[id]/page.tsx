@@ -119,6 +119,7 @@ export default function EditProductPage() {
         throw new Error(data.error || "Error updating product");
       }
       const updatedProduct = await res.json();
+      console.log("Updated product:", updatedProduct);
       setSuccess("Product updated successfully!");
       // Redirect back to the admin products page after a short delay
       setTimeout(() => {
@@ -135,7 +136,7 @@ export default function EditProductPage() {
     }
   };
 
-  if (fetching) return <p>Loading product details...</p>;
+  if (fetching) return <p>...</p>;
 
   return (
     <div style={{ padding: "2rem" }}>
@@ -195,7 +196,7 @@ export default function EditProductPage() {
           ))}
         </select>
         <button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Staðfesta"}
+          {loading ? "..." : "Staðfesta"}
         </button>
       </form>
       {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}

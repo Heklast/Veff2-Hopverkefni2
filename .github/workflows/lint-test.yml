@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
 
@@ -58,11 +58,19 @@ jobs:
         working-directory: ./backend
         run: node prisma/seed.js
 
-      - name: Lint
+      - name: Lint backend
         working-directory: ./backend
         run: npm run lint
 
-      - name: Test
+      - name: Test backend
         if: always()
         working-directory: ./backend
         run: npm run test
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Lint frontend
+        working-directory: ./frontend
+        run: npm run lint

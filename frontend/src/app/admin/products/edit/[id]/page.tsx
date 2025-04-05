@@ -119,6 +119,7 @@ export default function EditProductPage() {
         throw new Error(data.error || "Error updating product");
       }
       const updatedProduct = await res.json();
+      console.log("Updated product:", updatedProduct);
       setSuccess("Product updated successfully!");
       // Redirect back to the admin products page after a short delay
       setTimeout(() => {

@@ -21,6 +21,7 @@ export default function AdminProductsPage() {
       const payload = token.split('.')[1];
       return JSON.parse(atob(payload));
     } catch (err) {
+      console.log(err);
       return null;
     }
   }
